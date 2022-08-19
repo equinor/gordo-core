@@ -34,7 +34,21 @@ xarray = "^2022.3.0"
 numpy = "^1.22.2"
 
 [tool.poetry.dev-dependencies]
-
+pytest = "^6.1"
+black = ">=22.1.0,<23.0.0"
+pytest-cov = "^2.8.1"
+docker = "^4.2.0"
+mock = "^4.0.2"
+pytest-mock = "^3.1.0"
+pytest-xdist = "^2.1.0"
+pytest-mypy = "^0.7.0"
+types-python-dateutil = "*"
+types-setuptools = "*"
+types-cachetools = "*"
+types-pytz = "*"
+types-requests = "*"
+types-mock = "*"
+ipython = "^7.32.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
