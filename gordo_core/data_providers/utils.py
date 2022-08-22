@@ -1,7 +1,7 @@
 from typing import Iterable, Tuple
 from urllib.parse import quote
 
-from gordo_core.data_providers.storages import FileSystem
+from gordo_core.file_systems import FileSystem
 
 
 def partition_dir_name(field: str, value: str):

@@ -20,7 +20,7 @@ if [ -z "$version" ]; then
 fi
 
 function check_package_version {
-    grep "^version = \"*\"" pyproject.toml | grep $1
+    grep "^version = \"*\"" pyproject.toml | grep $1 > /dev/null
 }
 
 package_version=${version#"v"}
