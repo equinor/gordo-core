@@ -1,1 +1,1 @@
-from .base import GordoBaseDataset, DatasetWithProvider
+from .base import DatasetWithProvider, GordoBaseDataset

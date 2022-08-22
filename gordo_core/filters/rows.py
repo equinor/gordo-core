@@ -2,17 +2,13 @@ import ast
 import logging
 import re
 import tokenize
-from typing import Union, Tuple
+from typing import Tuple, Union
 
 import numpy as np
 import pandas as pd
-from pandas.core.computation.expr import (
-    _preparse,
-    _compose,
-    _replace_locals,
-    _replace_booleans,
-    _rewrite_assign,
-)
+from pandas.core.computation.expr import (_compose, _preparse,
+                                          _replace_booleans, _replace_locals,
+                                          _rewrite_assign)
 from pandas.core.computation.ops import MATHOPS
 from pandas.core.computation.parsing import BACKTICK_QUOTED_STRING
 

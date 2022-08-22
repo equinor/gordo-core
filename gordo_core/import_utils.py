@@ -1,6 +1,5 @@
 import importlib
-
-from typing import Optional, Any, Iterable
+from typing import Any, Iterable, Optional
 
 Location = tuple[Optional[str], str]
 BackCompatibleLocations = dict[Location, Location]

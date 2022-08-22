@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 import logging
 import random
+from datetime import datetime
 from typing import Iterable, Optional, Tuple
 
-from cachetools import cached, TTLCache
-from influxdb import DataFrameClient
 import numpy as np
 import pandas as pd
+from cachetools import TTLCache, cached
+from influxdb import DataFrameClient
 
 from gordo_core.sensor_tag import Tag, extract_tag_name
 from gordo_core.utils import capture_args
 
 from .base import GordoBaseDataProvider
-
 
 logger = logging.getLogger(__name__)
 

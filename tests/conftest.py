@@ -16,6 +16,15 @@ logger = logging.getLogger(__name__)
 TEST_SERVER_MUTEXT = Lock()
 
 
+def pytest_collection_modifyitems(items):
+    """
+    Update all tests which use influxdb to be marked as a dockertest
+    """
+    for item in items:
+        if hasattr(item, "fixturenames") and "influxdb" in item.fixturenames:
+            item.add_marker(pytest.mark.dockertest)
+
+
 @pytest.fixture(autouse=True)
 def check_event_loop():
     loop = asyncio.get_event_loop()

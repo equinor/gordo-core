@@ -1,9 +1,9 @@
+import posixpath
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-import posixpath
-from typing import Optional, Iterable, IO, Tuple
+from typing import IO, Iterable, Optional, Tuple
 
 
 class FileType(Enum):

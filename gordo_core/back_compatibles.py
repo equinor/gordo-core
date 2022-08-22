@@ -1,6 +1,7 @@
 from typing import Final
 
-from .import_utils import BackCompatibleLocations, prepare_back_compatible_locations
+from .import_utils import (BackCompatibleLocations,
+                           prepare_back_compatible_locations)
 
 BACK_COMPATIBLE_LOCATIONS: Final[list[tuple[str, str]]] = [
     ("TimeSeriesDataset", "gordo_dataset.time_series.TimeSeriesDataset"),

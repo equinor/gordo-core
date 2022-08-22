@@ -1,9 +1,7 @@
 import copy
-import logging
 import itertools
-
-from typing import Union, Optional, Iterable, cast
-
+import logging
+from typing import Iterable, Optional, Union, cast
 
 logger = logging.getLogger(__name__)
 
