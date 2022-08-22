@@ -9,8 +9,7 @@ import pandas as pd
 
 from gordo_core.exceptions import ConfigException
 from gordo_core.import_utils import BackCompatibleLocations, import_location
-from gordo_core.sensor_tag import (Sensor, Tag, normalize_sensor_tag,
-                                   unique_tag_names)
+from gordo_core.sensor_tag import Sensor, Tag, normalize_sensor_tag, unique_tag_names
 
 from ..back_compatibles import DEFAULT_BACK_COMPATIBLES
 

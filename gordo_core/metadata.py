@@ -1,8 +1,13 @@
 from typing import Iterable, Optional, Set
 
-from gordo_core.sensor_tag import (SensorTag, Tag, extract_tag_name,
-                                   load_sensor_tag, tag_to_json,
-                                   unique_tag_names)
+from gordo_core.sensor_tag import (
+    SensorTag,
+    Tag,
+    extract_tag_name,
+    load_sensor_tag,
+    tag_to_json,
+    unique_tag_names,
+)
 
 
 def tags_to_json_representation(tags: Iterable[Tag]) -> dict:
