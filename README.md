@@ -1,6 +1,6 @@
-# [Gordo](https://github.com/equinor/gordo) core library.
+# Gordo core library.
 
----
+[Main repository](https://github.com/equinor/gordo) for reference.
 
 ## Installation
 
