@@ -1,10 +1,8 @@
-# gordo-core
-
 [Gordo](https://github.com/equinor/gordo) core library.
 
 ## Installation
 
-Python 3.9 need to be installed in the system.
+Python 3.9 need to be installed in the system first.
 
 ```
 pip3 install gordo-core
