@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Additional ignores
+.vscode/
+*.pkl
+/gordo_core/_version.py
+.python-version
+*.DS_Store
+.idea
+*.iml
