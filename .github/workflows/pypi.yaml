@@ -1,0 +1,41 @@
+name: PiPY Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish-to-pypi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check version
+        run: bash scripts/prepare_version.sh -v "${GITHUB_REF#refs/tags/}" -p gordo_core/_version.py
+
+      - name : Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+          architecture: 'x64'
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.1.1
+        with:
+          version: 1.1.14
+          virtualenvs-in-project: false
+          virtualenvs-path: ~/.virtualenvs
+
+      - name: Install twine
+        run: |
+          pip install "twine>=4.0.1,<5.0.0"
+      
+      - name: Build
+        run: |
+          poetry build -f wheel
+
+      - name: Pypi Publish
+        run: |
+          twine upload --skip-existing -u "${{ secrets.PYPI_USER }}" -p "${{ secrets.PYPI_PASSWORD }}" dist/*
