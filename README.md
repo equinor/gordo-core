@@ -16,7 +16,7 @@ pip3 install gordo-core
 
 Install [poetry](https://python-poetry.org/docs/#installation).
 
-Setup development shell instance:
+Setup and run development shell instance:
 
 ```console
 > poetry shell
