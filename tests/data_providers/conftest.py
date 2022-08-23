@@ -1,8 +1,8 @@
-import pytest
 from datetime import datetime
 from typing import Iterable, Optional
 
 import pandas as pd
+import pytest
 
 from gordo_core.data_providers.base import GordoBaseDataProvider
 from gordo_core.sensor_tag import Tag

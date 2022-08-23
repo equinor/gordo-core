@@ -1,9 +1,9 @@
-import pytest
-import pandas as pd
 import dateutil.parser
+import pandas as pd
+import pytest
 
-from gordo_core.data_providers.base import GordoBaseDataProvider
 from gordo_core.data_providers import InfluxDataProvider, RandomDataProvider
+from gordo_core.data_providers.base import GordoBaseDataProvider
 from gordo_core.exceptions import ConfigException
 from gordo_core.sensor_tag import SensorTag, SensorTagNormalizationError
 

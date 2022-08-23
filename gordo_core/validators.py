@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
-import dateutil.parser
 import logging
 
+import dateutil.parser
 import pandas as pd
 
 from gordo_core.sensor_tag import SensorTag
-
 
 logger = logging.getLogger(__name__)
 

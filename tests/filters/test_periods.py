@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import pytest
 import os
+
 import pandas as pd
+import pytest
 
 from gordo_core.filters.periods import FilterPeriods
 

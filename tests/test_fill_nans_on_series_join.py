@@ -66,9 +66,7 @@ import pytest
 import pytz
 
 from gordo_core.sensor_tag import SensorTag
-from tests.data.fill_nans_data.expected_metadata import (
-    get_expected_metadata,
-)
+from tests.data.fill_nans_data.expected_metadata import get_expected_metadata
 
 TESTS_ROOT = Path(__file__).parent.resolve()
 TEST_DATA_FOLDER = TESTS_ROOT / "data" / "fill_nans_data"

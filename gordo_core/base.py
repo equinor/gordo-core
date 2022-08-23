@@ -1,23 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from abc import ABCMeta, abstractmethod
-import logging
-from typing import Union, Any, Tuple, Optional, Type, Callable, cast
-
-import pandas as pd
-import numpy as np
-import xarray as xr
 import copy
+import logging
+from abc import ABCMeta, abstractmethod
+from typing import Any, Callable, Optional, Tuple, Type, Union, cast
 
-from gordo_core.exceptions import ConfigException
-from gordo_core.import_utils import (
-    import_location,
-    BackCompatibleLocations,
-)
+import numpy as np
+import pandas as pd
+import xarray as xr
+
 from gordo_core.data_providers.base import GordoBaseDataProvider
+from gordo_core.exceptions import ConfigException
+from gordo_core.import_utils import BackCompatibleLocations, import_location
 
 from .back_compatibles import DEFAULT_BACK_COMPATIBLES
-
 
 logger = logging.getLogger(__name__)
 

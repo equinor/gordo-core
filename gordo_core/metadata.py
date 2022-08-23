@@ -1,24 +1,24 @@
-from typing import Iterable, Set, Optional
+from typing import Iterable, Optional, Set
 
 from gordo_core.sensor_tag import (
-    tag_to_json,
-    extract_tag_name,
-    Tag,
     SensorTag,
+    Tag,
+    extract_tag_name,
     load_sensor_tag,
+    tag_to_json,
     unique_tag_names,
 )
 
 
 def tags_to_json_representation(tags: Iterable[Tag]) -> dict:
     unique_tags = unique_tag_names(tags)
-    tags_metadata = {}
+    tags_metadata1 = {}
     for tag_name, tag in unique_tags.items():
         json_repr = tag_to_json(tag)
         if type(json_repr) is str:
             continue
-        tags_metadata[tag_name] = json_repr
-    return tags_metadata
+        tags_metadata1[tag_name] = json_repr
+    return tags_metadata1
 
 
 def _get_dataset_meta(build_dataset_metadata: dict) -> Optional[dict]:

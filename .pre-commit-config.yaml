@@ -1,0 +1,19 @@
+repos:
+- repo: local
+  hooks:
+    - id: black
+      name: Black 
+      description: Reformat the code with Black
+      entry: poetry
+      args: ["run", "black", "gordo_core", "tests"]
+      pass_filenames: false
+      types: ["python"]
+      language: system
+
+    - id: pytest
+      name: Pytest
+      entry: poetry
+      args: ["run", "pytest", "-n", "auto", "-m", "not dockertest", "gordo_core", "tests"]
+      pass_filenames: false
+      language: system
+      files: "gordo_core/.*|tests/.*"

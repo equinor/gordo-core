@@ -1,6 +1,7 @@
-import pandas as pd
 import numpy as np
-from gordo_core.utils import find_gaps, capture_args, capture_args_ext
+import pandas as pd
+
+from gordo_core.utils import capture_args, capture_args_ext, find_gaps
 
 
 def test_find_gaps():

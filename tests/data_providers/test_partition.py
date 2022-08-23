@@ -1,13 +1,13 @@
-import pytest
-
 from datetime import datetime
 
+import pytest
+
 from gordo_core.data_providers.partition import (
-    YearPartition,
     MonthPartition,
-    split_by_partitions,
-    PartitionBy,
     Partition,
+    PartitionBy,
+    YearPartition,
+    split_by_partitions,
 )
 
 

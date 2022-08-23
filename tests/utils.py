@@ -1,16 +1,15 @@
-from contextlib import contextmanager
 import logging
 import os
-import requests
 import time
+from contextlib import contextmanager
 from threading import Lock
 
-from influxdb import InfluxDBClient
 import numpy as np
 import pandas as pd
+import requests
+from influxdb import InfluxDBClient
 
 from gordo_core.sensor_tag import SensorTag
-
 
 logger = logging.getLogger(__name__)
 

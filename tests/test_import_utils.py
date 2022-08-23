@@ -1,9 +1,6 @@
 import pytest
 
-from gordo_core.import_utils import (
-    import_location,
-    prepare_back_compatible_locations,
-)
+from gordo_core.import_utils import import_location, prepare_back_compatible_locations
 from gordo_core.time_series import TimeSeriesDataset
 
 

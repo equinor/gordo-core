@@ -1,34 +1,24 @@
 # -*- coding: utf-8 -*-
+import collections
+import logging
+import warnings
 from datetime import datetime
 from functools import wraps
-import logging
-from typing import (
-    Any,
-    Callable,
-    Iterable,
-    Optional,
-    Sequence,
-    Set,
-    Tuple,
-    Union,
-    cast,
-)
-import warnings
-import collections
+from typing import Any, Callable, Iterable, Optional, Sequence, Set, Tuple, Union, cast
 
-from dateutil.parser import isoparse
 import numpy as np
 import pandas as pd
+from dateutil.parser import isoparse
 
 from gordo_core.data_providers import GordoBaseDataProvider, RandomDataProvider
 from gordo_core.exceptions import (
     ConfigException,
     EmptyGeneratedDataframeError,
     GlobalExtremaEmptyDataError,
+    InsufficientDataError,
     KnownPeriodsEmptyDataError,
     NuisanceEmptyDataError,
     RowFilterEmptyDataError,
-    InsufficientDataError,
 )
 from gordo_core.filters.periods import FilterPeriods
 from gordo_core.filters.rows import pandas_filter_rows, parse_pandas_filter_vars
@@ -36,8 +26,8 @@ from gordo_core.sensor_tag import (
     Sensor,
     Tag,
     extract_tag_name,
-    unique_tag_names,
     tag_to_json,
+    unique_tag_names,
 )
 from gordo_core.utils import (
     capture_args,
@@ -54,11 +44,8 @@ from gordo_core.validators import (
 )
 
 from .base import DatasetWithProvider
-from .metadata import (
-    sensor_tags_from_build_metadata,
-    tags_to_json_representation,
-)
 from .import_utils import BackCompatibleLocations
+from .metadata import sensor_tags_from_build_metadata, tags_to_json_representation
 
 logger = logging.getLogger(__name__)
 

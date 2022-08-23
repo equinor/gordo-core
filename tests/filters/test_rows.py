@@ -1,13 +1,14 @@
-import pytest
 import numpy as np
 import pandas as pd
-from pandas.testing import assert_frame_equal
+import pytest
 from pandas.core.computation.ops import UndefinedVariableError
+from pandas.testing import assert_frame_equal
+
 from gordo_core.filters.rows import (
-    pandas_filter_rows,
-    parse_pandas_filter_vars,
     apply_buffer,
     escape_python_identifier,
+    pandas_filter_rows,
+    parse_pandas_filter_vars,
     unescape_python_identifier,
 )
 
