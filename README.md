@@ -27,13 +27,13 @@ You could also install and apply [pre-commit](https://pre-commit.com/#usage) hoo
 
 ### Run tests
 
+Install [docker](https://docs.docker.com/engine/install/) (or similar container manager) if you want to run test-suite.
+
 Run tests (except docker-related ones):
 
 ```console
 > poetry run pytest -n auto -m "not dockertest"
 ```
-
-Install [docker](https://docs.docker.com/engine/install/) (or similar container manager) if you want to run test-suite.
 
 Run docker-related tests:
 ```console
