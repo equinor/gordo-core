@@ -12,13 +12,13 @@ from gordo_core.sensor_tag import (
 
 def tags_to_json_representation(tags: Iterable[Tag]) -> dict:
     unique_tags = unique_tag_names(tags)
-    tags_metadata1 = {}
+    tags_metadata = {}
     for tag_name, tag in unique_tags.items():
         json_repr = tag_to_json(tag)
         if type(json_repr) is str:
             continue
-        tags_metadata1[tag_name] = json_repr
-    return tags_metadata1
+        tags_metadata[tag_name] = json_repr
+    return tags_metadata
 
 
 def _get_dataset_meta(build_dataset_metadata: dict) -> Optional[dict]:
