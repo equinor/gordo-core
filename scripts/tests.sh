@@ -13,4 +13,4 @@ if [ "$1" = "-h" ]; then
     usage 0
 fi
 
-poetry run pytest --cov=app -vv gordo_core tests
+poetry run pytest --cov=gordo_core -vv gordo_core tests

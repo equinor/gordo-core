@@ -3,9 +3,13 @@ name: CI
 on:
   pull_request:
     types: [opened, reopened]
+    paths-ignore:
+      - '**.md'
   push:
     branches:
       - '**'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   test:
