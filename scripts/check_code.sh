@@ -11,5 +11,7 @@ if [ "$1" = "-h" ]; then
     usage 0
 fi
 
-echo Check black formating
+echo Check with black
 poetry run black --check gordo_core tests
+echo Check with isort
+poetry run isort --check gordo_core tests
