@@ -1,12 +1,11 @@
 import logging
-import dateutil.parser
 
+import dateutil.parser
 import pytest
 
 from gordo_core.base import GordoBaseDataset
 from gordo_core.data_providers.providers import InfluxDataProvider
 from gordo_core.utils import influx_client_from_uri
-
 
 logger = logging.getLogger(__name__)
 

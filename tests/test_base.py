@@ -1,15 +1,14 @@
-import pytest
-
-from typing import cast
 from datetime import datetime
+from typing import cast
 
+import pytest
 from dateutil.tz import tzutc
 
 from gordo_core.base import GordoBaseDataset
-from gordo_core.sensor_tag import SensorTag
-from gordo_core.time_series import TimeSeriesDataset
 from gordo_core.data_providers import RandomDataProvider
 from gordo_core.exceptions import ConfigException
+from gordo_core.sensor_tag import SensorTag
+from gordo_core.time_series import TimeSeriesDataset
 
 
 def test_from_dict():

@@ -5,24 +5,15 @@ repos:
       name: Black 
       description: Reformat the code with Black
       entry: poetry
-      args: ["run", "black"]
-      pass_filenames: true
-      types: ["python"]
-      language: system
-
-    - id: isort 
-      name: Isort
-      description: Reformat the code with Isort
-      entry: poetry
-      args: ["run", "isort"]
-      pass_filenames: true
+      args: ["run", "black", "gordo_core", "tests"]
+      pass_filenames: false
       types: ["python"]
       language: system
 
     - id: pytest
       name: Pytest
       entry: poetry
-      args: ["run", "pytest", "-n", "auto", "-m", "not dockertest"]
+      args: ["run", "pytest", "-n", "auto", "-m", "not dockertest", "gordo_core", "tests"]
       pass_filenames: false
       language: system
       files: "gordo_core/.*|tests/.*"

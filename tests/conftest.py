@@ -7,8 +7,8 @@ from threading import Lock
 import docker
 import pytest
 
-from gordo_core.time_series import RandomDataset
 from gordo_core.sensor_tag import SensorTag, to_list_of_strings
+from gordo_core.time_series import RandomDataset
 from tests import utils as tu
 
 logger = logging.getLogger(__name__)

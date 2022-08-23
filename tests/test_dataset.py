@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime, timezone
 import logging
+import warnings
+from datetime import datetime, timezone
 from typing import Iterable, Optional, Tuple, Union, cast
 from unittest.mock import MagicMock
-import warnings
 
 import dateutil.parser
 import numpy as np
@@ -15,21 +15,21 @@ import xarray as xr
 from gordo_core.base import GordoBaseDataset
 from gordo_core.data_providers.base import GordoBaseDataProvider
 from gordo_core.data_providers.providers import RandomDataProvider
-from gordo_core.time_series import (
-    RandomDataset,
-    TimeSeriesDataset,
-    NotEnoughDataWarning,
-)
 from gordo_core.exceptions import (
+    ConfigException,
     EmptyGeneratedDataframeError,
     GlobalExtremaEmptyDataError,
+    InsufficientDataError,
     KnownPeriodsEmptyDataError,
     NuisanceEmptyDataError,
     RowFilterEmptyDataError,
-    InsufficientDataError,
-    ConfigException,
 )
-from gordo_core.sensor_tag import Tag, SensorTag, extract_tag_name
+from gordo_core.sensor_tag import SensorTag, Tag, extract_tag_name
+from gordo_core.time_series import (
+    NotEnoughDataWarning,
+    RandomDataset,
+    TimeSeriesDataset,
+)
 from gordo_core.utils import capture_args
 
 

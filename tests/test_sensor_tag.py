@@ -1,15 +1,16 @@
-import pytest
 import pickle
 
+import pytest
+
 from gordo_core.sensor_tag import (
-    load_sensor_tag,
-    normalize_sensor_tag,
-    extract_tag_name,
-    unique_tag_names,
-    to_list_of_strings,
-    tag_to_json,
     SensorTag,
     SensorTagNormalizationError,
+    extract_tag_name,
+    load_sensor_tag,
+    normalize_sensor_tag,
+    tag_to_json,
+    to_list_of_strings,
+    unique_tag_names,
 )
 
 
