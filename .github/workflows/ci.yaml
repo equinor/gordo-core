@@ -13,11 +13,7 @@ jobs:
     if: ${{ github.event_name != 'pull_request' || (!github.event.pull_request.draft && !github.event.pull_request.head.repo.fork)}}
     strategy:
       matrix:
-        action:
-          - title: check code
-            script: check_code.sh
-          - title: tests
-            script: tests.sh
+        script: [check_code.sh, tests.sh]
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
@@ -48,5 +44,5 @@ jobs:
       - name: Install Dependencies
         run: poetry install
 
-      - name: Run ${{ action.title }}
-        run: bash scripts/${{ action.script }}
+      - name: Run ${{ script }}
+        run: bash scripts/${{ script }}
