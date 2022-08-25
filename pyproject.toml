@@ -20,6 +20,7 @@ classifiers = [
 ]
 include = [
     "LICENSE",
+    "gordo_core/_version.py"
 ]
 packages = [
     { include = "gordo_core" }
