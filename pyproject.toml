@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gordo-core"
-version = "0.1.1"
+version = "0.1.2"
 description = "Gordo core library"
 authors = ["Equinor ASA <fg_gpl@equinor.com>"]
 license = "AGPLv3"
@@ -20,6 +20,7 @@ classifiers = [
 ]
 include = [
     "LICENSE",
+    "gordo_core/_version.py"
 ]
 packages = [
     { include = "gordo_core" }

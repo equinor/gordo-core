@@ -196,10 +196,10 @@ class TimeSeriesDataset(DatasetWithProvider):
             Performs a series of algorithms that drops noisy data is specified.
             See `filter_periods` class for details.
         kwargs
-            Deprecated arguments
+            Deprecated arguments.
 
-        .. deprecated:: 5.0.0
-            `asset` will be removed in gordo-dataset 6.0.0
+        .. deprecated::
+            `asset` will be removed in the future.
         """
         self.train_start_date = self._validate_dt(train_start_date)
         self.train_end_date = self._validate_dt(train_end_date)
@@ -216,8 +216,8 @@ class TimeSeriesDataset(DatasetWithProvider):
             )
         if type(data_provider) is dict:
             raise ConfigException(
-                "dict is deprecated for 'data_provider' since gordo-dataset>=5.0.0."
-                " Use %s.instantiate() method instead." % self.__class__.__name__
+                "dict 'data_provider' representation is deprecated."
+                " Use %s.with_data_provider() method instead." % self.__class__.__name__
             )
         self.data_provider = data_provider
 

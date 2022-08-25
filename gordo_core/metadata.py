@@ -46,7 +46,7 @@ def sensor_tags_from_build_metadata(
     build_dataset_metadata: dict, tag_names: Set[str]
 ) -> dict[str, SensorTag]:
     """
-    Fetch tags assets from the metadata
+    Fetch tags information from the metadata
 
     Parameters
     ----------
