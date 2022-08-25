@@ -279,7 +279,7 @@ def tag_to_json(tag: Tag) -> Union[str, dict[str, Optional[str]]]:
 
 def validate_tag_equality(tag1: Tag, tag2: Tag):
     """
-    SensorTag should not have a different asset name.
+    SensorTags with the same name should not have different fields.
     str and SensorTag should not have the same name.
 
     Parameters
