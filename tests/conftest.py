@@ -35,7 +35,7 @@ def check_event_loop():
 
 @pytest.fixture(scope="session")
 def sensors():
-    return [SensorTag(f"tag-{i}", asset=None) for i in range(4)]
+    return [SensorTag(f"tag-{i}") for i in range(4)]
 
 
 @pytest.fixture(scope="session")
