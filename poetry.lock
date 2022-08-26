@@ -848,7 +848,7 @@ viz = ["matplotlib", "seaborn", "nc-time-axis"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ee4ae5132bf10684cb50dd562b1a2e05ce36348357f287507a36e5c944d76007"
+content-hash = "08d7b997f1e1f1c556eab47cb5a782923400046e232d1a264c5338e7ca33da97"
 
 [metadata.files]
 appnope = []
