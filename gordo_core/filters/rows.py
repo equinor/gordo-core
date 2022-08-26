@@ -13,7 +13,11 @@ from pandas.core.computation.expr import (
     _replace_locals,
     _rewrite_assign,
 )
-from pandas.core.computation.ops import MATHOPS
+
+try:
+    from pandas.core.computation.ops import MATHOPS
+except ImportError:
+    from pandas.core.computation.ops import _mathops as MATHOPS
 from pandas.core.computation.parsing import BACKTICK_QUOTED_STRING
 
 logger = logging.getLogger(__name__)
