@@ -907,7 +907,10 @@ def test_warning_data_has_gaps():
     with warnings.catch_warnings(record=True) as recorded:
         warnings.simplefilter("always")
         _ = dataset.get_data()
-        w = recorded[-1]
+        for w in recorded:
+            if w.category is NotEnoughDataWarning:
+                break
+        assert w is not None
         assert w.category == NotEnoughDataWarning
         assert str(w.message) == expected
 
