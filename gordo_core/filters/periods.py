@@ -137,7 +137,7 @@ class FilterPeriods:
         r_iqr = roll.quantile(0.75) - roll.quantile(0.25)
         high = r_md + self._n_iqr * r_iqr
         low = r_md - self._n_iqr * r_iqr
-        mask = ((data < low) | (data > high)).any(1).astype("int") * -1
+        mask = ((data < low) | (data > high)).any(axis=1).astype("int") * -1
         pred = pd.DataFrame({"pred": mask})
         pred.index.name = "timestamp"
         pred = pred.reset_index()
