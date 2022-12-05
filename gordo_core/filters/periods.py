@@ -51,15 +51,19 @@ class FilterPeriods:
         n_iqr=5,
         iforest_smooth=False,
         contamination=0.03,
+        quantile_lower=0.05,
+        quantile_upper=0.95,
     ):
         self.granularity = granularity
         self.filter_method = filter_method
-        if self.filter_method not in ["median", "iforest", "all"]:
+        if self.filter_method not in ["quantile", "median", "iforest", "all"]:
             raise WrongFilterMethodType
         self._window = window
         self._n_iqr = n_iqr
         self._iforest_smooth = iforest_smooth
         self._contamination = contamination
+        self._quantile_lower = quantile_lower
+        self._quantile_upper = quantile_upper
 
     def filter_data(self, data):
         """Method for filtering data.
@@ -69,6 +73,9 @@ class FilterPeriods:
         predictions = {}
         if self.filter_method in ["median", "all"]:
             predictions["median"] = self._rolling_median(data)
+
+        if self.filter_method in ["quantile", "all"]:
+            predictions["quantile"] = self._quantile_filter(data)
 
         if self.filter_method in ["iforest", "all"]:
             self._train(data)
@@ -137,7 +144,26 @@ class FilterPeriods:
         r_iqr = roll.quantile(0.75) - roll.quantile(0.25)
         high = r_md + self._n_iqr * r_iqr
         low = r_md - self._n_iqr * r_iqr
-        mask = ((data < low) | (data > high)).any(1).astype("int") * -1
+        mask = ((data < low) | (data > high)).any(axis=1).astype("int") * -1
+        pred = pd.DataFrame({"pred": mask})
+        pred.index.name = "timestamp"
+        pred = pred.reset_index()
+        logger.info("Anomaly ratio: %s", list(pred).count(-1) / pred.shape[0])
+        return pred
+
+    def _quantile_filter(self, data):
+        """Function for filtering outliers using a global quantile approach."""
+        logger.info("Calculating predictions for quantile filter")
+        # self._quantile_upper = 0.95
+        # self._quantile_lower = 0.05
+        # self._n_iqr = 6
+        q_range = data.quantile(self._quantile_upper) - data.quantile(
+            self._quantile_lower
+        )
+        medians = data.median()
+        high = medians + self._n_iqr * q_range
+        low = medians - self._n_iqr * q_range
+        mask = ((data < low) | (data > high)).any(axis=1).astype("int") * -1
         pred = pd.DataFrame({"pred": mask})
         pred.index.name = "timestamp"
         pred = pred.reset_index()
