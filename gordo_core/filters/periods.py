@@ -179,7 +179,7 @@ class FilterPeriods:
         drop_periods = {}
 
         if self.filter_method == "all":
-            pred_types = ["iforest", "median"]
+            pred_types = ["iforest", "median", "quantile"]
 
         else:
             pred_types = [self.filter_method]
