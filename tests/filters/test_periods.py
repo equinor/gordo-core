@@ -25,6 +25,7 @@ def test_filter_periods_typerror(data):
     with pytest.raises(TypeError):
         FilterPeriods(granularity="10T", filter_method="abc", n_iqr=1)
 
+
 def test_filter_periods_quantile(data):
     data_filtered, drop_periods, predictions = FilterPeriods(
         granularity="10T",
@@ -40,6 +41,7 @@ def test_filter_periods_quantile(data):
     assert sum(predictions["quantile"]["pred"]) == -96
     assert len(drop_periods["quantile"]) == 4
     assert data_filtered.shape == (4794, 1)
+
 
 def test_filter_periods_median(data):
     data_filtered, drop_periods, predictions = FilterPeriods(
