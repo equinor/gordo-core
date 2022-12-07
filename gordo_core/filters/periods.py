@@ -154,9 +154,6 @@ class FilterPeriods:
     def _quantile_filter(self, data):
         """Function for filtering outliers using a global quantile approach."""
         logger.info("Calculating predictions for quantile filter")
-        # self._quantile_upper = 0.95
-        # self._quantile_lower = 0.05
-        # self._n_iqr = 6
         q_range = data.quantile(self._quantile_upper) - data.quantile(
             self._quantile_lower
         )
