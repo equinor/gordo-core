@@ -600,7 +600,7 @@ class MockDataProvider(GordoBaseDataProvider):
         """With value argument for generating different types of data series (e.g. NaN)"""
         self.value = value
         self.n_rows = n_rows
-        self.last_tag_list = None
+        self.last_tag_list: Optional[list[Tag]] = None
 
     def can_handle_tag(self, tag):
         return True
@@ -775,7 +775,9 @@ def test_trigger_tags():
     X, y = dataset.get_data()
     assert X is not None
     assert y is not None
-    assert set(data_provider.last_tag_list) == {
+    assert data_provider.last_tag_list is not None
+    last_tag_list = cast(list[Tag], data_provider.last_tag_list)
+    assert set(last_tag_list) == {
         SensorTag("Tag 1"),
         SensorTag("Tag 2"),
         SensorTag("Tag 3"),

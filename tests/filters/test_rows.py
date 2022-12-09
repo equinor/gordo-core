@@ -40,8 +40,8 @@ def test_parse_filter_vars():
     result = set(parse_pandas_filter_vars(expr))
     assert result == {"col1", "col2"}
 
-    expr = ["tag1 > 0", "tag2 < 100"]
-    result = set(parse_pandas_filter_vars(expr))
+    expr_list = ["tag1 > 0", "tag2 < 100"]
+    result = set(parse_pandas_filter_vars(expr_list))
     assert result == {"tag1", "tag2"}
 
     expr = "0 < index < 100"

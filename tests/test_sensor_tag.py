@@ -41,7 +41,7 @@ def test_sensor_tag_eq():
 def test_sensor_tag_validation_error():
     with pytest.raises(SensorTagNormalizationError):
         fields = {"field1": 1}
-        SensorTag("tag", **fields)
+        SensorTag("tag", **fields)  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -84,7 +84,7 @@ def test_load_sensor_tag(sensor, expected):
 
 def test_load_sensor_tag_fail():
     with pytest.raises(SensorTagNormalizationError):
-        load_sensor_tag(23)
+        load_sensor_tag(23)  # type: ignore
 
 
 def test_extract_tag_name():

@@ -1,6 +1,12 @@
 import pytest
 
-from gordo_core.import_utils import import_location, prepare_back_compatible_locations
+from typing import Optional
+
+from gordo_core.import_utils import (
+    import_location,
+    prepare_back_compatible_locations,
+    BackCompatibleLocations,
+)
 from gordo_core.time_series import TimeSeriesDataset
 
 
@@ -64,7 +70,7 @@ def test_prepare_back_compatible_locations_failed():
 
 
 def test_import_locate_with_back_back_compatibles():
-    back_compatibles = {
+    back_compatibles: Optional[BackCompatibleLocations] = {
         ("gordo_core.datasets", "TimeSeriesDataset"): (
             "gordo_core.time_series",
             "TimeSeriesDataset",
@@ -93,7 +99,7 @@ def test_import_locate_with_back_back_compatibles():
 
 
 def test_import_locate_with_back_back_compatibles_failed():
-    back_compatibles = {
+    back_compatibles: Optional[BackCompatibleLocations] = {
         ("gordo_core.datasets", "TimeSeriesDataset"): (
             "gordo_core.datasets",
             "TimeSeriesDataset",

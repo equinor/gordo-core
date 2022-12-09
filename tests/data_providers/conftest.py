@@ -31,7 +31,7 @@ class DummyDataProvider(GordoBaseDataProvider):
                 "object's __init__ is decorated with 'capture_args'"
             )
         # Update dict with the class
-        params = self._params
+        params = getattr(self, "_params", {})
         module_str = self.__class__.__module__
         if module_str is None or module_str == str.__class__.__module__:
             module_str = self.__class__.__name__
