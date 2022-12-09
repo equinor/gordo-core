@@ -60,7 +60,7 @@ def test_to_dict_custom():
 
 
 def test_base_get_closest_datapoint():
-    data_provider = GordoBaseDataProvider()
+    data_provider = GordoBaseDataProvider()  # type: ignore
     before_time = dateutil.parser.isoparse("2017-01-01T09:11:00+00:00")
     with pytest.raises(NotImplementedError):
         data_provider.get_closest_datapoint(
@@ -79,7 +79,7 @@ def test_base_get_closest_datapoint():
     ],
 )
 def test_tag_normalizer(sensors, expected):
-    data_provider = GordoBaseDataProvider()
+    data_provider = GordoBaseDataProvider()  # type: ignore
     tags_list = data_provider.tag_normalizer(sensors)
     assert tags_list == expected
 
@@ -97,6 +97,6 @@ def test_tag_normalizer(sensors, expected):
     ],
 )
 def test_tag_normalizer_fail(sensors, exception):
-    data_provider = GordoBaseDataProvider()
+    data_provider = GordoBaseDataProvider()  # type: ignore
     with pytest.raises(exception):
         data_provider.tag_normalizer(sensors)

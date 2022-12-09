@@ -45,8 +45,8 @@ class FilterPeriods:
 
     def __init__(
         self,
-        granularity: Optional[str] = "10T",
-        filter_method: Optional[str] = "median",
+        granularity: str = "10T",
+        filter_method: str = "median",
         window=144,
         n_iqr=5,
         iforest_smooth=False,

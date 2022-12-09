@@ -2,7 +2,7 @@
 import logging
 import random
 from datetime import datetime
-from typing import Iterable, Optional, Tuple
+from typing import Iterable, Optional, Tuple, cast
 
 import numpy as np
 import pandas as pd
@@ -27,10 +27,10 @@ class InfluxDataProvider(GordoBaseDataProvider):
         self,
         measurement: str,
         value_name: str = "Value",
-        api_key: str = None,
-        api_key_header: str = None,
-        client: DataFrameClient = None,
-        uri: str = None,
+        api_key: Optional[str] = None,
+        api_key_header: Optional[str] = None,
+        client: Optional[DataFrameClient] = None,
+        uri: Optional[str] = None,
         **kwargs,
     ):
         """
@@ -52,14 +52,14 @@ class InfluxDataProvider(GordoBaseDataProvider):
         """
         self.measurement = measurement
         self.value_name = value_name
-        self.influx_client = client
+        influx_client = client
         if kwargs.pop("threads", None):
             logger.warning(
                 "InfluxDataProvider got parameter 'threads' which is not supported, it "
                 "will be ignored."
             )
 
-        if self.influx_client is None:
+        if influx_client is None:
             if uri:
 
                 # Import here to avoid any circular import error caused by
@@ -68,7 +68,7 @@ class InfluxDataProvider(GordoBaseDataProvider):
                 # which would then try to import TimeSeriesDataset again.
                 from gordo_core.utils import influx_client_from_uri
 
-                self.influx_client = influx_client_from_uri(  # type: ignore
+                influx_client = influx_client_from_uri(  # type: ignore
                     uri,
                     api_key=api_key,
                     api_key_header=api_key_header,
@@ -77,13 +77,14 @@ class InfluxDataProvider(GordoBaseDataProvider):
             else:
                 if "type" in kwargs:
                     kwargs.pop("type")
-                self.influx_client = DataFrameClient(**kwargs)
+                influx_client = DataFrameClient(**kwargs)
                 if api_key is not None:
                     if not api_key_header:
                         raise ValueError(
                             "If supplying an api key, you must supply the header key to insert it under."
                         )
-                    self.influx_client._headers[api_key_header] = api_key
+                    influx_client._headers[api_key_header] = api_key
+        self.influx_client = cast(DataFrameClient, influx_client)
 
     def load_series(
         self,
@@ -164,9 +165,7 @@ class InfluxDataProvider(GordoBaseDataProvider):
             raise e
 
     def _list_of_tags_from_influx(self):
-        query_tags = (
-            f"""SHOW TAG VALUES ON {self.influx_client._database} WITH KEY="tag" """
-        )
+        query_tags = f"""SHOW TAG VALUES ON {self.influx_client._database} WITH KEY="tag" """  # type: ignore
         result = self.influx_client.query(query_tags)
         list_of_tags = []
         for item in list(result.get_points()):

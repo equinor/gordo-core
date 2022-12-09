@@ -253,6 +253,11 @@ class TimeSeriesDataset(DatasetWithProvider):
         self.filter_periods: Optional[FilterPeriods] = None
         if filter_periods:
             if isinstance(filter_periods, dict):
+                if not self.resolution:
+                    raise ConfigException(
+                        "'resolution' field should be provided along with 'filter_periods' for %s"
+                        % self.__class__.__name__
+                    )
                 self.filter_periods = FilterPeriods(
                     granularity=self.resolution, **filter_periods
                 )

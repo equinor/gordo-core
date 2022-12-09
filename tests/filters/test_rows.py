@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import pytest
-from pandas.core.computation.ops import UndefinedVariableError
 from pandas.testing import assert_frame_equal
 
 from gordo_core.filters.rows import (
@@ -41,8 +40,8 @@ def test_parse_filter_vars():
     result = set(parse_pandas_filter_vars(expr))
     assert result == {"col1", "col2"}
 
-    expr = ["tag1 > 0", "tag2 < 100"]
-    result = set(parse_pandas_filter_vars(expr))
+    expr_list = ["tag1 > 0", "tag2 < 100"]
+    result = set(parse_pandas_filter_vars(expr_list))
     assert result == {"tag1", "tag2"}
 
     expr = "0 < index < 100"
@@ -71,7 +70,7 @@ def test_filter_rows_basic():
 
 def test_filter_rows_catches_illegal():
     df = pd.DataFrame(list(np.ndindex((10, 2))), columns=["Tag  1", "Tag 2"])
-    with pytest.raises(UndefinedVariableError):
+    with pytest.raises(NameError):
         pandas_filter_rows(df, "sys.exit(0)")
     with pytest.raises(NotImplementedError):
         pandas_filter_rows(df, "lambda x:x")
