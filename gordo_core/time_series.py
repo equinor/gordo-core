@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import collections
 import logging
 import warnings
 from datetime import datetime
@@ -26,7 +25,6 @@ from gordo_core.sensor_tag import (
     Sensor,
     Tag,
     extract_tag_name,
-    tag_to_json,
     unique_tag_names,
 )
 from gordo_core.utils import (
