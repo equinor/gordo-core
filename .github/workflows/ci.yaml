@@ -2,19 +2,17 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, reopened]
     paths-ignore:
       - '**.md'
   push:
     branches:
-      - '**'
+      - 'main'
     paths-ignore:
       - '**.md'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     strategy:
       matrix:
         script: [check_code.sh, tests.sh]
