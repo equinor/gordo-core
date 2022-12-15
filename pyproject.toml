@@ -1,60 +1,60 @@
 [tool.poetry]
-name = "gordo-core"
-version = "0.2.1"
-description = "Gordo core library"
 authors = ["Equinor ASA <fg_gpl@equinor.com>"]
-license = "AGPLv3"
-readme = "README.md"
-homepage = "https://github.com/equinor/gordo-core"
-repository = "https://github.com/equinor/gordo-core"
-keywords = ["gordo-core"]
 classifiers = [
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU Affero General Public License v3",
-    "Natural Language :: English",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Topic :: Scientific/Engineering",
-    "Topic :: Software Development"
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development",
 ]
+description = "Gordo core library"
+homepage = "https://github.com/equinor/gordo-core"
 include = [
-    "LICENSE",
-    "gordo_core/_version.py"
+  "LICENSE",
+  "gordo_core/_version.py",
 ]
+keywords = ["gordo-core"]
+license = "AGPLv3"
+name = "gordo-core"
 packages = [
-    { include = "gordo_core" }
+  {include = "gordo_core"},
 ]
+readme = "README.md"
+repository = "https://github.com/equinor/gordo-core"
+version = "0.2.1"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-pandas = "^1.1.0"
-influxdb = "^5.3.0"
 cachetools = "^4.1.0"
-pyarrow = ">=3.0.0,<7.0.0"
-scikit-learn = ">=0.24.2,<1.0.0"
+influxdb = "^5.3.0"
 numexpr = "^2.7.1"
-xarray = ">=0.16.2,<2023.0.0"
 numpy = ">=1.18.0,<2.0.0,!=1.20"
+pandas = "^1.1.0"
+pyarrow = ">=3.0.0,<7.0.0"
+python = "^3.9"
+scikit-learn = ">=0.24.2,<1.0.0"
+xarray = ">=0.16.2,<2023.0.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.0"
 black = ">=22.1.0,<23.0.0"
-pytest-cov = "^2.8.1"
 docker = "^4.2.0"
+ipython = "^7.32.0"
 mock = "^4.0.2"
-pytest-mock = "^3.1.0"
-pytest-xdist = "^2.1.0"
-pytest-mypy = "0.9.1"
+pytest = "^6.0"
+pytest-cov = "^2.8.1"
 pytest-flakes = "4.0.5"
-types-python-dateutil = "*"
-types-setuptools = "*"
+pytest-mock = "^3.1.0"
+pytest-mypy = "0.9.1"
+pytest-xdist = "^2.1.0"
 types-cachetools = "*"
+types-mock = "*"
+types-python-dateutil = "*"
 types-pytz = "*"
 types-requests = "*"
-types-mock = "*"
-ipython = "^7.32.0"
+types-setuptools = "*"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]

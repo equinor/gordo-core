@@ -104,12 +104,6 @@ class KnownPeriodsEmptyDataError(EmptyFilteredDataframeError):
     _message_tail = " after dropping known periods."
 
 
-class GlobalExtremaEmptyDataError(EmptyFilteredDataframeError):
-    """Error raised if global extrema filter made the data insufficient."""
-
-    _message_tail = " after filtering global extrema."
-
-
 class NuisanceEmptyDataError(EmptyFilteredDataframeError):
     """Error raised if nuisance filter made the data insufficient."""
 

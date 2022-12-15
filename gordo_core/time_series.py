@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import collections
 import logging
 import warnings
 from datetime import datetime
@@ -14,7 +13,6 @@ from gordo_core.data_providers import GordoBaseDataProvider, RandomDataProvider
 from gordo_core.exceptions import (
     ConfigException,
     EmptyGeneratedDataframeError,
-    GlobalExtremaEmptyDataError,
     InsufficientDataError,
     KnownPeriodsEmptyDataError,
     NuisanceEmptyDataError,
@@ -26,7 +24,6 @@ from gordo_core.sensor_tag import (
     Sensor,
     Tag,
     extract_tag_name,
-    tag_to_json,
     unique_tag_names,
 )
 from gordo_core.utils import (
@@ -125,8 +122,6 @@ class TimeSeriesDataset(DatasetWithProvider):
         row_filter_buffer_size: int = 0,
         asset: Optional[str] = None,
         n_samples_threshold: int = 0,
-        low_threshold: Optional[int] = -10_000,
-        high_threshold: Optional[int] = 500_000,
         interpolation_method: str = "linear_interpolation",
         interpolation_limit: str = DEFAULT_INTERPOLATION_LIMIT,
         filter_periods: Optional[Union[dict, FilterPeriods]] = None,
@@ -246,8 +241,6 @@ class TimeSeriesDataset(DatasetWithProvider):
         self.aggregation_methods = aggregation_methods
         self.row_filter_buffer_size = row_filter_buffer_size
         self.n_samples_threshold = n_samples_threshold
-        self.low_threshold = low_threshold
-        self.high_threshold = high_threshold
         self.interpolation_method = interpolation_method
         self.interpolation_limit = interpolation_limit
         self.filter_periods: Optional[FilterPeriods] = None
@@ -579,27 +572,6 @@ class TimeSeriesDataset(DatasetWithProvider):
 
         return data
 
-    @staticmethod
-    def _check_thresholds(
-        data: pd.DataFrame,
-        low_threshold: Optional[int],
-        high_threshold: Optional[int],
-        n_samples_threshold: int,
-    ) -> pd.DataFrame:
-        # TODO better docstring
-        if isinstance(low_threshold, int) and isinstance(high_threshold, int):
-            if low_threshold >= high_threshold:
-                raise ConfigException(
-                    "Low threshold need to be larger than high threshold"
-                )
-            logger.info("Applying global min/max filtering")
-            mask = ((data > low_threshold) & (data < high_threshold)).all(1)
-            data = data[mask]
-            logger.info("Shape of data after global min/max filtering: %s", data.shape)
-            if len(data) <= n_samples_threshold:
-                raise GlobalExtremaEmptyDataError(len(data), n_samples_threshold)
-        return data
-
     def _apply_filter_periods(
         self,
         data: pd.DataFrame,
@@ -750,10 +722,6 @@ class TimeSeriesDataset(DatasetWithProvider):
             triggered_tags=trigger_tag_list,
             row_filter_buffer_size=self.row_filter_buffer_size,
             n_samples_threshold=self.n_samples_threshold,
-        )
-
-        data = self._check_thresholds(
-            data, self.low_threshold, self.high_threshold, self.n_samples_threshold
         )
 
         data = self._apply_filter_periods(

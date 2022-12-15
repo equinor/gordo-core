@@ -402,7 +402,7 @@ def find_gaps(
     g = diff_[diff_ > td]
 
     # Output DataFrame
-    gaps = pd.DataFrame(g, columns=["duration"])
+    gaps = pd.DataFrame(g, columns=["duration"], dtype="timedelta64[ns]")
     gaps["start"] = gaps.index - gaps["duration"]
     gaps = gaps.rename_axis("end").reset_index()
     return gaps[["start", "end"]]

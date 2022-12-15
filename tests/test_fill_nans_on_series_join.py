@@ -89,9 +89,8 @@ def _read_series_from_file(file_name: str, series_name: str) -> pd.Series:
         index_col="time",
         dtype={"time": "str"},
         parse_dates=["time"],
-        squeeze=True,
         float_precision="round_trip",
-    )
+    ).squeeze("columns")
     series.name = series_name
     return series
 

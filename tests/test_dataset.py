@@ -18,7 +18,6 @@ from gordo_core.data_providers.providers import RandomDataProvider
 from gordo_core.exceptions import (
     ConfigException,
     EmptyGeneratedDataframeError,
-    GlobalExtremaEmptyDataError,
     InsufficientDataError,
     KnownPeriodsEmptyDataError,
     NuisanceEmptyDataError,
@@ -462,7 +461,7 @@ def test_row_filter():
         train_end_date=dateutil.parser.isoparse("2017-12-31 06:00:00Z"),
     )
     X, _ = TimeSeriesDataset(**kwargs).get_data()
-    assert 833 == len(X)
+    assert 865 == len(X)
 
     X, _ = TimeSeriesDataset(row_filter="`Tag 1` < 5000", **kwargs).get_data()
     assert 8 == len(X)
@@ -489,7 +488,7 @@ def test_aggregation_methods():
 
     # Default aggregation gives no extra columns
     X, _ = TimeSeriesDataset(**kwargs).get_data()
-    assert (833, 3) == X.shape
+    assert (865, 3) == X.shape
 
     # The default single aggregation method gives the tag-names as columns
     assert list(X.columns) == ["Tag 1", "Tag 2", "Tag 3"]
@@ -498,7 +497,7 @@ def test_aggregation_methods():
     # on top and aggregation_method as second level
     X, _ = TimeSeriesDataset(aggregation_methods=["mean", "max"], **kwargs).get_data()
 
-    assert (833, 6) == X.shape
+    assert (865, 6) == X.shape
     assert list(X.columns) == [
         ("Tag 1", "mean"),
         ("Tag 1", "max"),
@@ -526,7 +525,7 @@ def test_metadata_statistics():
     # Default aggregation gives no extra columns
     dataset = TimeSeriesDataset(**kwargs)
     X, _ = dataset.get_data()
-    assert (833, 3) == X.shape
+    assert (865, 3) == X.shape
     metadata = dataset.get_metadata()
     assert isinstance(metadata["x_hist"], dict)
     assert len(metadata["x_hist"].keys()) == 3
@@ -597,7 +596,7 @@ def test_timeseries_target_tags(tag_list, target_tag_list):
 
 class MockDataProvider(GordoBaseDataProvider):
     def __init__(self, value=None, n_rows=None, **kwargs):
-        """With value argument for generating different types of data series (e.g. NaN)"""
+        """With value argument for generating different types of data series (e.g. NaN)."""
         self.value = value
         self.n_rows = n_rows
         self.last_tag_list: Optional[list[Tag]] = None
@@ -672,41 +671,6 @@ def test_insufficient_data_after_row_filtering(
         RowFilterEmptyDataError(
             expected_data_length, n_samples_threshold, f"`Tag 1` < {filter_value}", 0
         ),
-    )
-
-
-@pytest.mark.parametrize(
-    "n_samples_threshold, high_threshold, low_threshold, expected_data_length",
-    [(10, 5000, -1000, 8), (0, 100, 0, 0)],
-)
-def test_insufficient_data_after_global_filtering(
-    n_samples_threshold, high_threshold, low_threshold, expected_data_length
-):
-    """
-    Test that dataframe after row_filter scenarios raise appropriate
-    InsufficientDataError
-    """
-
-    kwargs = dict(
-        data_provider=MockDataProvider(),
-        tag_list=[
-            SensorTag("Tag 1"),
-            SensorTag("Tag 2"),
-            SensorTag("Tag 3"),
-        ],
-        train_start_date=dateutil.parser.isoparse("2017-12-25 06:00:00Z"),
-        train_end_date=dateutil.parser.isoparse("2017-12-29 06:00:00Z"),
-        n_samples_threshold=n_samples_threshold,
-        high_threshold=high_threshold,
-        low_threshold=low_threshold,
-    )
-
-    with pytest.raises(InsufficientDataError) as excinfo:
-        TimeSeriesDataset(**kwargs).get_data()
-
-    _assert_error_equals(
-        excinfo.value,
-        GlobalExtremaEmptyDataError(expected_data_length, n_samples_threshold),
     )
 
 
