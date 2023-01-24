@@ -1,0 +1,20 @@
+name: Snyk for PRs and every morning
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron:  '30 4 * * *'  # run every day at 4:30 am.
+
+jobs:
+  vulnerability-scanning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.2.0
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@0.3.0
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: --all-projects
