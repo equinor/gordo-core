@@ -791,8 +791,8 @@ class DatasetForTest(GordoBaseDataset):
     def get_data(
         self,
     ) -> Tuple[
-        Union[np.ndarray, pd.DataFrame, xr.DataArray],
-        Union[np.ndarray, pd.DataFrame, xr.DataArray],
+        Union[np.ndarray, pd.DataFrame, xr.DataArray, xr.Dataset],
+        Union[np.ndarray, pd.DataFrame, xr.DataArray, xr.Dataset],
     ]:
         return np.array([]), np.array([])
 
