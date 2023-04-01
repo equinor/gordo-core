@@ -150,8 +150,8 @@ class GordoBaseDataset(metaclass=ABCMeta):
     def get_data(
         self,
     ) -> Tuple[
-        Union[np.ndarray, pd.DataFrame, xr.DataArray],
-        Union[np.ndarray, pd.DataFrame, xr.DataArray],
+        Union[np.ndarray, pd.DataFrame, xr.DataArray, xr.Dataset],
+        Union[np.ndarray, pd.DataFrame, xr.DataArray, xr.Dataset],
     ]:
         """
         Return X, y data as numpy or pandas' dataframes given current state
@@ -160,8 +160,8 @@ class GordoBaseDataset(metaclass=ABCMeta):
     def get_client_data(
         self, build_dataset_metadata: dict
     ) -> Tuple[
-        Union[np.ndarray, pd.DataFrame, xr.DataArray],
-        Union[np.ndarray, pd.DataFrame, xr.DataArray],
+        Union[np.ndarray, pd.DataFrame, xr.DataArray, xr.Dataset],
+        Union[np.ndarray, pd.DataFrame, xr.DataArray, xr.Dataset],
     ]:
         """
         The version of `get_data` used by gordo-client
