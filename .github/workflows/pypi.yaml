@@ -15,10 +15,10 @@ jobs:
       - name: Check version
         run: bash scripts/prepare_version.sh -v "${GITHUB_REF#refs/tags/}" -p gordo_core/_version.py
 
-      - name : Set up Python 3.9
+      - name : Set up Python 3.10
         uses: actions/setup-python@v1
         with:
-          python-version: 3.9
+          python-version: '3.10'
           architecture: 'x64'
 
       - name: Install Poetry
