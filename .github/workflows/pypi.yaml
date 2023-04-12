@@ -16,7 +16,7 @@ jobs:
         run: bash scripts/prepare_version.sh -v "${GITHUB_REF#refs/tags/}" -p gordo_core/_version.py
 
       - name : Set up Python 3.10
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
           architecture: 'x64'
@@ -28,14 +28,14 @@ jobs:
           virtualenvs-in-project: false
           virtualenvs-path: ~/.virtualenvs
 
-      - name: Install twine
-        run: |
-          pip install "twine>=4.0.1,<5.0.0"
-      
       - name: Build
         run: |
           poetry build -f wheel
 
-      - name: Pypi Publish
-        run: |
-          twine upload --skip-existing -u "${{ secrets.PYPI_USER }}" -p "${{ secrets.PYPI_PASSWORD }}" dist/*
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
+          user: ${{ secrets.PYPI_USER }}
+          password: ${{ secrets.PYPI_PASSWORD }}
+          packages-dir: dist/
