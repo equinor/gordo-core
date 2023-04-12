@@ -4,7 +4,7 @@ The main component can be found [here](https://github.com/equinor/gordo).
 
 ## Installation
 
-Python 3.9 need to be installed in the system first.
+At least python 3.9 need to be installed in the system first.
 
 ```
 pip3 install gordo-core
