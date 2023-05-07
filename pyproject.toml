@@ -54,6 +54,13 @@ types-pytz = "*"
 types-requests = "*"
 types-setuptools = "*"
 
+[tool.poetry.group.docs.dependencies]
+sphinx = "^6.2.1"
+toml = "^0.10.2"
+sphinx-autobuild = "^2021.3.14"
+sphinx-copybutton = "^0.5.2"
+furo = "^2023.3.27"
+
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
