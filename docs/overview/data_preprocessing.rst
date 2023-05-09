@@ -57,7 +57,6 @@ Information regarding the size of each dataset, before any of the `preprocessing
 .. list-table::
    :header-rows: 1
    :width: 100%
-   :widths: 30 70
 
    * - Path 
      - Description/Unit
@@ -66,41 +65,48 @@ Information regarding the size of each dataset, before any of the `preprocessing
    * - ``data_provider``
      - Data provider specific metadata. 
    * - ``row_filter_tags``
-     - List of sensor tags participating in raw filter `row filter <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/filter_rows.py>`_.
+     - List of row filter tags. Tags participating in `Row filter <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/filter_rows.py>`_.
+   * - ``original_length``
+     - Tag
+   * - ``resampled_length``
+     - Tag
+   * - ``joined_length``
+     - Complete set
+   * - ``dropped_na_length``
+     - Complete set
    * - ``filtered_periods``
      - Periods dropped by applied algorithm in `data preprocessing <../data_preprocessing>`_
+   * - ``train_start_date_actual``
+     - Actual start training data after data preprocessing
+   * - ``train_end_date_actual``
+     - Actual end training data after data preprocessing
    * - ``summary_statistics``
-     - Descriptive statistics (quartiles, max/min, median etc.) for each sensor tag
+     - Descriptive statistics (quartiles, max/min, median etc.) for each tag
+   * - ``fold-n-train``
+     - Number of observations in training fold. Given for each fold.
+   * - ``fold-n-test``
+     - Number of observations in test fold. Given for each fold.
+   * - ``fold-n-test-start``
+     - Start of test data. Given for each fold.
+   * - ``fold-n-test-end``
+     - End of test data. Given for each fold.
+   * - ``fold-n-train-start``
+     - Start of train data. Given for each fold.
+   * - ``fold-n-train-end``
+     - End of train data. Given for each fold.
    * - ``tag_loading_metadata.tags``
-     - Serialized sensor tags information.
+     - Serialized tags information.
 
-
-``tag_loading_metadata.aggregate_metadata`` contains sensor tag lengths on the different preprocessing steps:
-
-.. list-table::
-   :header-rows: 1
-   :width: 100%
-   :widths: 30 70
-
-   * - Path 
-     - Description/Unit
-   * - ``joined_length``
-     - Length after joining all sensor tags.
-   * - ``dropped_na_length``
-     - Length after dropping None values.
-
-
-``tag_loading_metadata`` also contains per sensor tag metadata:
+``tag_loading_metadata`` also contains per tag metadata:
 
 .. list-table::
    :header-rows: 1
    :width: 100%
-   :widths: 30 70
 
    * - Path 
      - Description/Unit
    * - ``gaps``
-     - Time-series gaps with no values. ``start``, ``end`` of gaps in Unix-timestamp.
+     - Empty time-series gaps. ``start``, ``end`` of gaps in Unix-timestamp.
    * - ``last_timestamp``
      - First value in Unix-timestamp.
    * - ``first_timestamp``
@@ -109,7 +115,6 @@ Information regarding the size of each dataset, before any of the `preprocessing
      - Number of values.
    * - ``resampled_length``
      - Number of values after resampling.
-
 
 .. toctree::
     :maxdepth: 1
