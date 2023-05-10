@@ -20,6 +20,8 @@ Data preprocessing steps
 
 Between each step, the samples of the resulting dataset is compared to ``n_samples_threshold`` to ensure at least minimum size is returned.
 
+.. _filter_periods:
+
 Filter periods algorithms
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -27,6 +29,7 @@ This executes a set of algorithms that will filter out observations.
 There are currently two algorithms implemented: Rolling median and isolation forest.
 
 ``window`` is used by the rolling median 
+
 
 .. list-table::
    :header-rows: 1
@@ -66,36 +69,14 @@ Information regarding the size of each dataset, before any of the `preprocessing
      - Data provider specific metadata. 
    * - ``row_filter_tags``
      - List of row filter tags. Tags participating in `Row filter <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/filter_rows.py>`_.
-   * - ``original_length``
-     - Tag
-   * - ``resampled_length``
-     - Tag
-   * - ``joined_length``
-     - Complete set
-   * - ``dropped_na_length``
-     - Complete set
    * - ``filtered_periods``
-     - Periods dropped by applied algorithm in `data preprocessing <../data_preprocessing>`_
-   * - ``train_start_date_actual``
-     - Actual start training data after data preprocessing
-   * - ``train_end_date_actual``
-     - Actual end training data after data preprocessing
+     - Periods dropped by applied algorithm in the data preprocessing. Key is a :ref:`filter periods <filter_periods>` type, and value is a list with ``drop_start``, ``drop_end`` items in ISO timestamps.
    * - ``summary_statistics``
      - Descriptive statistics (quartiles, max/min, median etc.) for each tag
-   * - ``fold-n-train``
-     - Number of observations in training fold. Given for each fold.
-   * - ``fold-n-test``
-     - Number of observations in test fold. Given for each fold.
-   * - ``fold-n-test-start``
-     - Start of test data. Given for each fold.
-   * - ``fold-n-test-end``
-     - End of test data. Given for each fold.
-   * - ``fold-n-train-start``
-     - Start of train data. Given for each fold.
-   * - ``fold-n-train-end``
-     - End of train data. Given for each fold.
    * - ``tag_loading_metadata.tags``
      - Serialized tags information.
+   * - ``tag_loading_metadata.aggregate_metadata``
+     - DataFrame sizes: ``joined_length`` - after joining all columns,  ``dropped_na_length`` - after removing missing values.
 
 ``tag_loading_metadata`` also contains per tag metadata:
 
