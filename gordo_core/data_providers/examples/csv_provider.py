@@ -13,16 +13,21 @@ from typing import Optional, Union, Iterable, Tuple
 class CSVDataProvider(GordoBaseDataProvider):
     @capture_args
     def __init__(
-        self,
-        file_path: Union[str, Path],
-        timestamp_column: str,
-        sep: str = ",",
-        delimiter: Optional[str] = None,
+        self, file_path: Union[str, Path], timestamp_column: str, sep: str = ","
     ):
+        """
+        Parameters
+        ----------
+        file_path
+            Path to a CSV file containing the data to be loaded.
+        timestamp_column
+            Column in the CSV file containing the timestamps for each row.
+        sep
+            Delimiter to use.
+        """
         self.file_path = file_path
         self.timestamp_column = timestamp_column
         self.sep = sep
-        self.delimiter = delimiter
 
     def load_series(
         self,
@@ -32,6 +37,9 @@ class CSVDataProvider(GordoBaseDataProvider):
         dry_run: Optional[bool] = False,
         **kwargs,
     ) -> Iterable[Tuple[pd.Series, Tag]]:
+        """
+        Load the data from the CSV file.
+        """
         tags = unique_tag_names(tag_list)
         usecols = []
         if self.timestamp_column not in tags:
@@ -40,7 +48,6 @@ class CSVDataProvider(GordoBaseDataProvider):
         df = pd.read_csv(
             self.file_path,
             sep=self.sep,
-            delimiter=self.delimiter,
             usecols=usecols,
         )
         df[self.timestamp_column] = pd.to_datetime(df[self.timestamp_column], utc=True)
