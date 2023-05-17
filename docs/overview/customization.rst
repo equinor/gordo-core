@@ -13,19 +13,23 @@ Then we can use this data provider through ``TimeSeriesDataset`` and load a CSV 
 
     In [1]: from gordo_core.time_series import TimeSeriesDataset
 
-    In [2]: from gordo_core.data_providers.examples.csv_provider import CSVDataProvider
+    In [2]: from gordo_core.sensor_tag import SensorTag 
 
-    In [3]: data_provider=CSVDataProvider("../examples/turbine_sensors.csv", "index")
+    In [3]: from gordo_core.data_providers.examples.csv_provider import CSVDataProvider
 
-    In [4]: dataset = TimeSeriesDataset(
+    In [4]: data_provider=CSVDataProvider("../examples/turbine_sensors.csv", "index")
+
+    In [5]: dataset = TimeSeriesDataset(
        ...:     train_start_date='2023-01-29 00:00:00+00:00',
        ...:     train_end_date='2023-01-31 00:00:00+00:00',
-       ...:     tag_list=['Pressure','RPM','Temperature'],
+       ...:     tag_list=[SensorTag('Pressure'), SensorTag('RPM'), 'Temperature'],
        ...:     data_provider=data_provider,
        ...:     row_filter="`RPM` > 0",
        ...: )
 
-    In [5]: X, y = dataset.get_data()
+    In [6]: X, y = dataset.get_data()
 
-    In [6]: X
+    In [7]: X
+
+``tag_list`` could be specified either as ``SensorTag`` object with additional metadata or as a string. ``str`` to ``SensorTag`` conversion could be customized with overwriting ``GordoBase DataProvider.tag_normalizer()`` method.
 

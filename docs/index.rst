@@ -14,3 +14,4 @@ It also provides tools for preprocessing and cleaning fetched data.
 
     ./overview/data_preprocessing.rst
     ./overview/customization.rst 
+    ./api/utils.rst

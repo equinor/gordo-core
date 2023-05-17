@@ -17,16 +17,15 @@ def capture_args_ext(ignore: Optional[Iterable[str]] = None):
     """
     Decorator that captures args and kwargs passed to a given method.
     This assumes the decorated method has a self, which has a dict of
-    kwargs assigned as an attribute named _params.
+    kwargs assigned as an attribute named ``_params``.
 
     Parameters
     ----------
-    ignore: Optional[Iterable[str]]
+    ignore
         List of arguments that need to be ignored during capturing
 
     Returns
     -------
-    Any
         Returns whatever the original method would return
     """
 
@@ -83,12 +82,11 @@ def _parse_influx_uri(uri: str) -> Tuple[str, str, str, str, str, str]:
 
     Parameters
     ----------
-    uri: str
-        Format: <username>:<password>@<host>:<port>/<optional-path>/<db_name>
+    uri
+        Format: ``<username>:<password>@<host>:<port>/<optional-path>/<db_name>``
 
     Returns
     -------
-    (str, str, str, str, str, str)
         username, password, host, port, path, database
     """
     username, password, host, port, *path, db_name = (
@@ -111,22 +109,18 @@ def influx_client_from_uri(
 
     Parameters
     ----------
-    uri: str
+    uri
         Connection string format: <username>:<password>@<host>:<port>/<optional-path>/<db_name>
-    api_key: str
+    api_key
         Any api key required for the client connection
-    api_key_header: str
+    api_key_header
         The name of the header the api key should be assigned
-    recreate: bool
+    recreate
         Re/create the database named in the URI
-    dataframe_client: bool
+    dataframe_client
         Return a DataFrameClient instead of a standard InfluxDBClient
-    proxies: dict
+    proxies
         A mapping of any proxies to pass to the influx client
-
-    Returns
-    -------
-    Union[InfluxDBClient, DataFrameClient]
     """
 
     username, password, host, port, path, db_name = _parse_influx_uri(uri)
@@ -162,20 +156,19 @@ def fill_series_with_look_back_points(
 
     Parameters
     ----------
-    series : pd.Series
+    series
         Series for Nans filling.
-    look_back_point : pd.Series
+    look_back_point
         Series with one closest point (with time) in past. Contains only one point.
-    end_time : datetime
+    end_time
         latest time of the Series till what points might be filled.
-    interpolation_limit : str
+    interpolation_limit
         time limit for interpolation.
-    resolution : str
+    resolution
         resolution of DatetimeIndex of the Series.
 
     Returns
     -------
-    pd.Series
         Newly copied and filled with Nans (if possible) Series.
         Given Series is not affected.
     """
@@ -366,7 +359,7 @@ def gaps_df_to_dict(df: pd.DataFrame) -> dict:
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df
         Contains columns: start, end
     """
     if df.empty:

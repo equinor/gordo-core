@@ -64,9 +64,9 @@ Information regarding the size of each dataset, before any of the `preprocessing
    * - Path 
      - Description/Unit
    * - ``x_hist``
-     - Histogram information for each tag. String with serialized JSON dictionary where key contains gap ``(<from>, <to>]``, and value number of values within this gap.
+     - Histogram information for each tag. String with serialized JSON dictionary where key contains gap ``(<from>, <to>]``, and value number of samples within this gap.
    * - ``data_provider``
-     - Data provider specific metadata. 
+     - Data provider specific metadata. Result of ``GordoBaseDataProvider.get_metadata()`` method.
    * - ``row_filter_tags``
      - List of row filter tags. Tags participating in `Row filter <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/filter_rows.py>`_.
    * - ``filtered_periods``

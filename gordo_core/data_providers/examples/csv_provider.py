@@ -11,7 +11,7 @@ from typing import Optional, Union, Iterable, Tuple
 
 
 class CSVDataProvider(GordoBaseDataProvider):
-    @capture_args
+    @capture_args  # required for proper data provider JSON serialization
     def __init__(
         self, file_path: Union[str, Path], timestamp_column: str, sep: str = ","
     ):
@@ -40,6 +40,7 @@ class CSVDataProvider(GordoBaseDataProvider):
         """
         Load the data from the CSV file.
         """
+        # this dict contains sensor tag names as keys, and Tag as values
         tags = unique_tag_names(tag_list)
         usecols = []
         if self.timestamp_column not in tags:

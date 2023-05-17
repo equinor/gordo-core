@@ -67,7 +67,7 @@ intersphinx_mapping = {
     "xarray": ("https://docs.xarray.dev/en/stable/user-guide/", None),
 }
 
-autodoc_typehints = "description"
+autodoc_typehints = "signature"
 
 autodoc_typehints_description_target = "documented"
 
