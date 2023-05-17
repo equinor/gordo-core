@@ -14,7 +14,7 @@ class BaseDescriptor:
     """
     Base descriptor class
 
-    New object should override __set__(self, instance, value) method to check
+    New object should override ``__set__(self, instance, value)`` method to check
     if 'value' meets required needs.
     """
 
@@ -30,7 +30,7 @@ class BaseDescriptor:
 
 class ValidDataset(BaseDescriptor):
     """
-    Descriptor for attributes requiring type :class:`gordo.workflow.config_elements.Dataset`
+    Descriptor for attributes requiring type :class:`gordo_core.base.GordoBaseDataset`
     """
 
     def __set__(self, instance, value):
@@ -47,7 +47,7 @@ class ValidDataset(BaseDescriptor):
 
 class ValidDatasetKwargs(BaseDescriptor):
     """
-    Descriptor for attributes requiring type :class:`gordo.workflow.config_elements.Dataset`
+    Descriptor for attributes requiring type :class:`gordo_core.base.GordoBaseDataset`
     """
 
     def _verify_resolution(self, resolution: str):
@@ -74,7 +74,7 @@ class ValidDatasetKwargs(BaseDescriptor):
 
 class ValidDataProvider(BaseDescriptor):
     """
-    Descriptor for DataProvider
+    Descriptor for attributes requiring type :class:`gordo_core.data_providers.base.GordoBaseDataProvider`
     """
 
     def __set__(self, instance, value):
@@ -92,7 +92,7 @@ class ValidDataProvider(BaseDescriptor):
 
 class ValidDatetime(BaseDescriptor):
     """
-    Descriptor for attributes requiring valid datetime.datetime attribute
+    Descriptor for attributes requiring valid :class:`datetime.datetime` attribute
     """
 
     def __set__(self, instance, value):

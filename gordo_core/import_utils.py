@@ -34,7 +34,7 @@ def prepare_back_compatible_locations(
 ) -> BackCompatibleLocations:
     """
     The result of this function can be used as `back_compatibles` argument
-    in `import_location()` functions.
+    in :func:`.import_location` functions.
 
     Example
     -------
@@ -43,13 +43,13 @@ def prepare_back_compatible_locations(
 
     Parameters
     ----------
-    locations: Iterable[tuple[str, str]]
+    locations
         List of locations. The first item of each tuple is a location in the previous version,
         the second item is the location of the current version.
 
     Returns
     -------
-        Key-Value pair with locations of the previous version to the current version.
+        Key/Value pair with locations of the previous version to the current version.
 
     """
     back_compatibles: BackCompatibleLocations = {}
@@ -83,10 +83,10 @@ def import_location(
 
     Parameters
     ----------
-    location: str
-    import_path: Optional[str]
-    back_compatibles: Optional[BackCompatibleLocations]
-        See `prepare_back_compatible_locations()` function for reference.
+    location
+    import_path
+    back_compatibles
+        See :func:`prepare_back_compatible_locations` function for reference.
 
     Returns
     -------

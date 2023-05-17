@@ -1,3 +1,16 @@
+"""
+This module defines the following exception hierarchy:
+
+* :exc:`ValueError`
+    * :exc:`InsufficientDataError`
+        * :exc:`EmptyDataframeError`
+            * :exc:`EmptyGeneratedDataframeError`
+            * :exc:`EmptyFilteredDataframeError`
+                * :exc:`RowFilterEmptyDataError`
+                * :exc:`KnownPeriodsEmptyDataError`
+                * :exc:`NuisanceEmptyDataError`
+    * :exc:`ConfigException`
+"""
 from typing import Optional, Union
 
 

@@ -75,6 +75,14 @@ _unescaping_re = re.compile(r"_([A-Z]+)_")
 
 
 def escape_python_identifier(name: str) -> str:
+    """
+    Escapes special symbols such as: ``.``, ``-`` etc., from the python variable identifier.
+
+    Parameters
+    ----------
+    name
+        Python variable name.
+    """
     if name.isidentifier():
         return name
     result_name = "".join(_escaping_chars_dict.get(char, char) for char in name)
@@ -85,6 +93,16 @@ def escape_python_identifier(name: str) -> str:
 
 
 def unescape_python_identifier(name: str) -> str:
+    """
+    Does opposite to :func:`~escape_python_identifier`.
+    Takes escaped string and converts it to the python variable identifier.
+
+    Parameters
+    ----------
+    name
+        Escaped python variable name.
+    """
+
     def unescape_repl(m):
         if m.group(1) in _unescaping_strings_dict:
             return _unescaping_strings_dict[m.group(1)]
@@ -107,19 +125,6 @@ def _clean_backtick_quoted_toks(tok: Tuple[int, str]) -> Tuple[int, str]:
 
 
 def _parse_pandas_filter_vars(pandas_filter: str, with_special_vars: bool) -> list[str]:
-    """
-    Parsing one ``pandas.eval`` expression. Uses python build-in ``ast`` parser under the hood
-
-    Parameters
-    ----------
-    pandas_filter: str
-    with_special_vars: bool
-
-    Returns
-    -------
-    list[str]
-
-    """
     pre_parsed_filter = _preparse(
         pandas_filter,
         _compose(
@@ -146,24 +151,21 @@ def parse_pandas_filter_vars(
     pandas_filter: Union[str, list[str]], with_special_vars: bool = False
 ) -> list[str]:
     """
-    Parsing ``pandas.eval`` expression and returns list of all used variables
+    Parsing :func:`pandas.eval` expression and returns list of all used variables.
+    Uses python build-in :mod:`ast` parser under the hood.
 
     Parameters
     ----------
-    pandas_filter: Union[str, list[str]]
+    pandas_filter
         Pandas eval expression
-    with_special_vars: bool
-        Include special variables such as `index`, math functions `sin`, 'log10` etc into the output
+    with_special_vars
+        Include special variables such as ``index``, math functions ``sin``, ``log10`` etc into the output
 
     Examples
     --------
     >>> vars_list = parse_pandas_filter_vars('Col1 > 0 & Col2 < 100')
     >>> sorted(vars_list)
     ['Col1', 'Col2']
-
-    Returns
-    -------
-    list[str]
 
     """
     if isinstance(pandas_filter, list):
@@ -184,9 +186,9 @@ def apply_buffer(mask: pd.Series, buffer_size: int = 0):
 
     Parameters
     ----------
-    mask: pandas.core.Series
+    mask
         Boolean pandas series
-    buffer_size: int
+    buffer_size
         Size to buffer around ``False`` values
 
     Examples
@@ -223,34 +225,33 @@ def apply_buffer(mask: pd.Series, buffer_size: int = 0):
 
 def pandas_filter_rows(
     df: pd.DataFrame, filter_str: Union[str, list], buffer_size: int = 0
-):
+) -> pd.DataFrame:
     """Filter pandas data frame based on list or string of conditions.
 
-    Note:
-    pd.DataFrame.eval of a list returns a numpy.ndarray and is limited to 100 list items.
-    The sparse evaluation with numexpr pd.DataFrame.eval of a combined string logic, can only consist of
-    a maximum 32 (current dependency) or 242 logical parts (latest release) and returns a pd.Series
-    Therefore, list elements are evaluated in batches of n=15 (to be safe) and evaluate iterative.
+    .. note:
+        :func:`pd.DataFrame.eval` of a list returns a numpy.ndarray and is limited to 100 list items.
+        The sparse evaluation with numexpr pd.DataFrame.eval of a combined string logic, can only consist of
+        a maximum 32 (current dependency) or 242 logical parts (latest release) and returns a pd.Series
+        Therefore, list elements are evaluated in batches of n=15 (to be safe) and evaluate iterative.
 
     Parameters
     ----------
-    df: pandas.Dataframe
+    df
       Dataframe to filter rows from. Does not modify the parameter
-    filter_str: str or list
+    filter_str
       String representing the filter. Can be a boolean combination of conditions,
       where conditions are comparisons of column names and either other columns
       or numeric values. The rows matching the filter are kept.
       Column names with spaces must be quoted with backticks,
       names without spaces could be quoted with backticks or be unquoted.
-      Example of legal filters are " `Tag A` > 5 " , " (`Tag B` > 1) | (`Tag C` > 4)"
-      '(`Tag D` < 5) ', " (TagB > 5) "
+      Example of legal filters are ```Tag A` > 5`` , ``(`Tag B` > 1) | (`Tag C` > 4)``
+      ``(`Tag D` < 5)``, ``(TagB > 5)``
       The parameter can also be a list, in which the items will be joined by logical " & ".
-    buffer_size: int
+    buffer_size
       Area fore and aft of the application of ``fitler_str`` to also mark for removal.
 
     Returns
     -------
-    pandas.Dataframe
         The dataframe containing only rows matching the filter
 
     Examples

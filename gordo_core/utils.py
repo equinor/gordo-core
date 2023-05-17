@@ -15,9 +15,9 @@ DEFAULT_INFLUX_PROXIES = MappingProxyType({"https": "", "http": ""})
 
 def capture_args_ext(ignore: Optional[Iterable[str]] = None):
     """
-    Decorator that captures args and kwargs passed to a given method.
+    Decorator that captures args and ``kwargs`` passed to a given method.
     This assumes the decorated method has a self, which has a dict of
-    kwargs assigned as an attribute named ``_params``.
+    ``kwargs`` assigned as an attribute named ``_params``.
 
     Parameters
     ----------
@@ -67,7 +67,7 @@ def capture_args_ext(ignore: Optional[Iterable[str]] = None):
 
 def capture_args(method: Callable):
     """
-    `capture_args_ext` without arguments
+    :func:`.capture_args_ext` without arguments
     """
     return capture_args_ext()(method)
 
@@ -105,12 +105,12 @@ def influx_client_from_uri(
     proxies: Mapping[str, str] = DEFAULT_INFLUX_PROXIES,
 ) -> Union[InfluxDBClient, DataFrameClient]:
     """
-    Get a InfluxDBClient or DataFrameClient from a SqlAlchemy like URI
+    Get a ``InfluxDBClient`` or ``DataFrameClient`` from a `SqlAlchemy <https://www.sqlalchemy.org/>`_ like URI
 
     Parameters
     ----------
     uri
-        Connection string format: <username>:<password>@<host>:<port>/<optional-path>/<db_name>
+        Connection string format: ``<username>:<password>@<host>:<port>/<optional-path>/<db_name>``
     api_key
         Any api key required for the client connection
     api_key_header
@@ -118,7 +118,7 @@ def influx_client_from_uri(
     recreate
         Re/create the database named in the URI
     dataframe_client
-        Return a DataFrameClient instead of a standard InfluxDBClient
+        Return a DataFrameClient instead of a standard ``InfluxDBClient``
     proxies
         A mapping of any proxies to pass to the influx client
     """
@@ -152,7 +152,7 @@ def fill_series_with_look_back_points(
     interpolation_limit: str,
     resolution: Union[str, pd.Timedelta],
 ) -> pd.Series:
-    """Fill of Nans of given Series with interpolated look-back points.
+    """Fill of Nans of given ``Series`` with interpolated look-back points.
 
     Parameters
     ----------
@@ -270,11 +270,10 @@ def resample(
     interpolation_method: str = "linear_interpolation",
 ):
     """Resample series accordingly to given parameters.
-
-    Note: Nans are NOT dropped in this function anymore after resampling.
-
     Takes a single series and resamples it.
-    See :class:`gordo_core.base.GordoBaseDataset.join_timeseries`
+
+    .. note::
+        Nans are NOT dropped in this function anymore after resampling.
     """
 
     startpoint_sametz = resampling_startpoint.astimezone(tz=series.index[0].tzinfo)
@@ -355,12 +354,11 @@ def _to_timestamps(column: list[pd.Timestamp]):
 
 def gaps_df_to_dict(df: pd.DataFrame) -> dict:
     """
-    Extract metadata information from `_find_gaps` DataFrame
+    Extract metadata information from :func:`find_gaps` DataFrame
 
-    Parameters
-    ----------
-    df
-        Contains columns: start, end
+    Returns
+    -------
+        Contains columns ``start``, ``end``
     """
     if df.empty:
         return {}

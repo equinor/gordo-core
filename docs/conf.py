@@ -65,6 +65,7 @@ intersphinx_mapping = {
     "scikit-learn": ("https://scikit-learn.org/stable/", None),
     "pyarrow": ("https://arrow.apache.org/docs/python/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/user-guide/", None),
+    "influxdb": ("https://influxdb-python.readthedocs.io/en/latest/", None)
 }
 
 autodoc_typehints = "signature"
