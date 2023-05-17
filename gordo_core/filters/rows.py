@@ -95,7 +95,7 @@ def escape_python_identifier(name: str) -> str:
 def unescape_python_identifier(name: str) -> str:
     """
     Does opposite to :func:`~escape_python_identifier`.
-    Takes escaped string and converts it to the python variable identifier.
+    Takes an escaped string and converts it to the python variable identifier.
 
     Parameters
     ----------
@@ -228,27 +228,27 @@ def pandas_filter_rows(
 ) -> pd.DataFrame:
     """Filter pandas data frame based on list or string of conditions.
 
-    .. note:
+    .. note::
         :func:`pd.DataFrame.eval` of a list returns a numpy.ndarray and is limited to 100 list items.
-        The sparse evaluation with numexpr pd.DataFrame.eval of a combined string logic, can only consist of
+        The sparse evaluation with numexpr :func:`pd.DataFrame.eval` of a combined string logic, can only consist of
         a maximum 32 (current dependency) or 242 logical parts (latest release) and returns a pd.Series
-        Therefore, list elements are evaluated in batches of n=15 (to be safe) and evaluate iterative.
+        Therefore, list elements are evaluated in batches of ``n=15`` (to be safe) and evaluate iterative.
 
     Parameters
     ----------
     df
-      Dataframe to filter rows from. Does not modify the parameter
+        Dataframe to filter rows from. Does not modify the parameter
     filter_str
-      String representing the filter. Can be a boolean combination of conditions,
-      where conditions are comparisons of column names and either other columns
-      or numeric values. The rows matching the filter are kept.
-      Column names with spaces must be quoted with backticks,
-      names without spaces could be quoted with backticks or be unquoted.
-      Example of legal filters are ```Tag A` > 5`` , ``(`Tag B` > 1) | (`Tag C` > 4)``
-      ``(`Tag D` < 5)``, ``(TagB > 5)``
-      The parameter can also be a list, in which the items will be joined by logical " & ".
+        String representing the filter. Can be a boolean combination of conditions,
+        where conditions are comparisons of column names and either other columns
+        or numeric values. The rows matching the filter are kept.
+        Column names with spaces must be quoted with backticks,
+        names without spaces could be quoted with backticks or be unquoted.
+        Example of legal filters are ```Tag A` > 5`` , ``(`Tag B` > 1) | (`Tag C` > 4)``
+        ``(`Tag D` < 5)``, ``(TagB > 5)``
+        The parameter can also be a list, in which the items will be joined by logical " & ".
     buffer_size
-      Area fore and aft of the application of ``fitler_str`` to also mark for removal.
+        Area fore and aft of the application of ``fitler_str`` to also mark for removal.
 
     Returns
     -------

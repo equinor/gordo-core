@@ -1,6 +1,7 @@
 import functools
 import inspect
 import logging
+import pkg_resources
 from collections import namedtuple
 from datetime import datetime
 from types import MappingProxyType
@@ -72,8 +73,10 @@ def capture_args(method: Callable):
     return capture_args_ext()(method)
 
 
-# Prediction result representation, name=str, predictions=dataframe, error_messages=list[str]
 PredictionResult = namedtuple("PredictionResult", "name predictions error_messages")
+"""
+Prediction result representation.
+"""
 
 
 def _parse_influx_uri(uri: str) -> Tuple[str, str, str, str, str, str]:
@@ -397,3 +400,10 @@ def find_gaps(
     gaps["start"] = gaps.index - gaps["duration"]
     gaps = gaps.rename_axis("end").reset_index()
     return gaps[["start", "end"]]
+
+
+def get_version() -> Optional[str]:
+    try:
+        return pkg_resources.get_distribution("gordo-core").version
+    except ImportError:
+        return None
