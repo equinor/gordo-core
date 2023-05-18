@@ -36,18 +36,18 @@ class InfluxDataProvider(GordoBaseDataProvider):
         """
         Parameters
         ----------
-        measurement: str
+        measurement
             Name of the measurement to select from in Influx
-        value_name: str
+        value_name
             Name of value to select, default to 'Value'
-        api_key: str
+        api_key
             Api key to use in header
-        api_key_header: str
+        api_key_header
             Key of header to insert the api key for requests
-        uri: str
+        uri
             Create a client from a URI
-            format: <username>:<password>@<host>:<port>/<optional-path>/<db_name>
-        kwargs: dict
+            format: `<username>:<password>@<host>:<port>/<optional-path>/<db_name>`
+        kwargs
             These are passed directly to the init args of influxdb.DataFrameClient
         """
         self.measurement = measurement
@@ -95,7 +95,7 @@ class InfluxDataProvider(GordoBaseDataProvider):
         **kwargs,
     ) -> Iterable[Tuple[pd.Series, Tag]]:
         """
-        See GordoBaseDataProvider for documentation
+        See :class:`~GordoBaseDataProvider` for documentation
         """
         if dry_run:
             raise NotImplementedError(
@@ -133,9 +133,6 @@ class InfluxDataProvider(GordoBaseDataProvider):
                 Name of the tag to match in influx
             measurement: str
                 name of the measurement to select from
-        Returns
-        -------
-            One column DataFrame
         """
 
         logger.info(f"Reading tag: {tag}")
@@ -176,13 +173,11 @@ class InfluxDataProvider(GordoBaseDataProvider):
     def get_list_of_tags(self) -> list[str]:
         """
         Queries Influx for the list of tags, using a TTL cache of 600 seconds. The
-        cache can be cleared with :func:`cache_clear()` as is usual with cachetools.
+        cache can be cleared with ``provider.get_list_of_tags.cache_clear()`` as is usual with cachetools.
 
         Returns
         -------
-        typing.list[str]
             The list of tags in Influx
-
         """
         return self._list_of_tags_from_influx()
 
@@ -193,7 +188,7 @@ class InfluxDataProvider(GordoBaseDataProvider):
 
 class RandomDataProvider(GordoBaseDataProvider):
     """
-    Get a GordoBaseDataset which returns unstructed values for X and y. Each instance
+    Get :class:`~GordoBaseDataset` which returns unstructed values for X and y. Each instance
     uses the same seed, so should be a function (same input -> same output)
     """
 

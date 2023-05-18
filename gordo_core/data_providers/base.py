@@ -43,7 +43,7 @@ class GordoBaseDataProvider:
             Set to true to perform a "dry run" of the loading.
             Up to the implementations to determine what that means.
         kwargs
-            With these - additional data might be passed by data_provider.
+            With these - additional data might be passed by ``data_provider``.
         """
         ...
 
@@ -117,7 +117,7 @@ class GordoBaseDataProvider:
         """
         Latest data point of tag from some time in the past till before_time, None if nothing found.
         This function is optional for implementing in the child classes,
-        if it's not implemented NotImplementedError will be thrown.
+        if it's not implemented :exc:`NotImplementedError` will be thrown.
         """
         raise NotImplementedError()
 
