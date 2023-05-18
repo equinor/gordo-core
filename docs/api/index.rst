@@ -9,4 +9,5 @@ API
     ./exceptions.rst
     ./time_series.rst
     ./filters.rst
+    ./file_systems.rst
     ./utils.rst

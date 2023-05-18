@@ -28,7 +28,7 @@ class SensorTag:
         Parameters
         ----------
         name
-            Sensor tag name. Required field.
+            Sensor tag name. Required field and should be unique among all the tags.
         kwargs
             Additional fields.
         """
@@ -98,7 +98,7 @@ class SensorTag:
 
     def mutate_fields(self, **kwargs: Optional[str]) -> "SensorTag":
         """
-        Update :class:`~SensorTag` fields from ``kwargs``. Instantiate a new object if needed
+        Update :class:`~SensorTag` fields from ``kwargs``. Instantiate a new object if needed.
 
         Examples
         --------
@@ -109,6 +109,7 @@ class SensorTag:
         Parameters
         ----------
         kwargs
+            Fields to update.
 
         """
         new_fields = copy.copy(self._fields)
@@ -231,6 +232,7 @@ def to_list_of_strings(sensor_tag_list: list[SensorTag]) -> list[str]:
     Parameters
     ----------
     sensor_tag_list
+        Sensor tags list
 
     """
     return [sensor_tag.name for sensor_tag in sensor_tag_list]
@@ -243,6 +245,7 @@ def extract_tag_name(tag: Tag) -> str:
     Parameters
     ----------
     tag
+        Sensor tag to extract.
 
     """
     if type(tag) is str:
@@ -258,9 +261,7 @@ def tag_to_json(tag: Tag) -> Union[str, dict[str, Optional[str]]]:
     Parameters
     ----------
     tag
-
-    Returns
-    -------
+        Tag to convert.
 
     """
     if type(tag) is str:
@@ -278,7 +279,9 @@ def validate_tag_equality(tag1: Tag, tag2: Tag):
     Parameters
     ----------
     tag1
+        First tag to compare.
     tag2
+        Second tag to compare.
 
     """
     type_tag1, type_tag2 = type(tag1), type(tag2)

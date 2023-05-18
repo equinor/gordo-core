@@ -33,21 +33,17 @@ class GordoBaseDataProvider:
 
         Parameters
         ----------
-        train_start_date: datetime
+        train_start_date
             Datetime object representing the start of fetching data
-        train_end_date: datetime
+        train_end_date
             Datetime object representing the end of fetching data
-        tag_list: list[Tag]
+        tag_list
             List of tags to fetch, where each will end up being its own dataframe
-        dry_run: Optional[bool]
+        dry_run
             Set to true to perform a "dry run" of the loading.
             Up to the implementations to determine what that means.
-        kwargs: dict
+        kwargs
             With these - additional data might be passed by data_provider.
-
-        Returns
-        -------
-        Iterable[Tuple[pd.Series, SensorTag]]
         """
         ...
 
@@ -56,26 +52,13 @@ class GordoBaseDataProvider:
         """
         Returns true if the dataprovider thinks it can possibly read this tag.
         Typically checks if the asset part of the tag is known to the reader.
-
-        Parameters
-        ----------
-        tag: SensorTag - Dictionary with a "tag" key and optional "asset"
-
-        Returns
-        -------
-        bool
-
         """
         ...
 
     def to_dict(self):
         """
         Serialize this object into a dict representation, which can be used to
-        initialize a new object after popping 'type' from the dict.
-
-        Returns
-        -------
-        dict
+        initialize a new object after popping ``type`` from the dict.
         """
         if not hasattr(self, "_params"):
             raise AttributeError(

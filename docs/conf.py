@@ -6,26 +6,20 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import datetime
-import toml
-import sys
 import os
+import datetime
+import importlib
+import inspect
+import traceback
+
+from gordo_core.dist import get_version
 
 
-def read_toml(file_path):
-    with open(file_path, "r") as f:
-        return toml.load(f)
-
-
-def get_version():
-    pyproject_path = os.path.join(os.path.dirname(__file__), "..", "pyproject.toml")
-    return read_toml(pyproject_path)['tool']['poetry']['version']
-
-
-project = 'gordo-core'
+project = "gordo-core"
 copyright = f"2022-{datetime.date.today().year}, Equinor"
-author = 'Equinor ASA'
+author = "Equinor ASA"
 version = get_version()
+commit = f"v{version}" if version else "HEAD"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -37,6 +31,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     "sphinx.ext.extlinks",
+    "sphinx.ext.linkcode",
     "IPython.sphinxext.ipython_directive",
     "IPython.sphinxext.ipython_console_highlighting",
     "sphinx_copybutton",
@@ -44,8 +39,51 @@ extensions = [
 
 root_doc = "index"
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+
+code_url = f"https://github.com/equinor/{project}/blob/{commit}"
+
+_ignore_linkcode_infos = [
+    # caused "OSError: could not find class definition"
+    {"module": "gordo_core.utils", "fullname": "PredictionResult"}
+]
+
+
+def linkcode_resolve(domain, info):
+    if domain != "py":
+        return None
+
+    for ignore_info in _ignore_linkcode_infos:
+        if (
+            info["module"] == ignore_info["module"]
+            and info["fullname"] == ignore_info["fullname"]
+        ):
+            return None
+
+    mod = importlib.import_module(info["module"])
+    if "." in info["fullname"]:
+        objname, attr = info["fullname"].split(".")
+        obj = getattr(mod, objname)
+        try:
+            obj = getattr(obj, attr)
+        except AttributeError:
+            return None
+    else:
+        obj = getattr(mod, info["fullname"])
+
+    try:
+        file = inspect.getsourcefile(obj)
+        lines = inspect.getsourcelines(obj)
+    except TypeError:
+        return None
+
+    rel_path = os.path.relpath(file, os.path.abspath(".."))
+    if not rel_path.startswith("gordo_core"):
+        return None
+    start, end = lines[1], lines[1] + len(lines[0]) - 1
+    return f"{code_url}/{rel_path}#L{start}-L{end}"
+
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
@@ -65,7 +103,7 @@ intersphinx_mapping = {
     "scikit-learn": ("https://scikit-learn.org/stable/", None),
     "pyarrow": ("https://arrow.apache.org/docs/python/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/user-guide/", None),
-    "influxdb": ("https://influxdb-python.readthedocs.io/en/latest/", None)
+    "influxdb": ("https://influxdb-python.readthedocs.io/en/latest/", None),
 }
 
 autodoc_typehints = "signature"
@@ -81,7 +119,7 @@ autodoc_inherit_docstrings = True
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 html_theme = "furo"
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 html_theme_options = {
     "footer_icons": [
@@ -104,4 +142,3 @@ html_theme_options = {
 html_copy_source = False
 
 html_show_sphinx = False
-

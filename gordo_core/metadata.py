@@ -46,6 +46,7 @@ def sensor_tags_from_build_metadata(
 ) -> dict[str, SensorTag]:
     """
     Fetch sensor tags information from the metadata.
+    This info should be placed in ``build_dataset_metadata["dataset_meta"]["tag_loading_metadata"]["tags"]``
 
     Parameters
     ----------

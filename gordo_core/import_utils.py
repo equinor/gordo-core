@@ -41,6 +41,8 @@ def prepare_back_compatible_locations(
     >>> prepare_back_compatible_locations([('old_module.MyClass', 'new_module.MyClass'),('OldClass', 'NewClass')])
     {('old_module', 'MyClass'): ('new_module', 'MyClass'), (None, 'OldClass'): (None, 'NewClass')}
 
+    Result items in this example are ``tuple[str, str]`` where the first item is a module location and the second is a class name.
+
     Parameters
     ----------
     locations
@@ -72,7 +74,7 @@ def import_location(
     back_compatibles: Optional[BackCompatibleLocations] = None
 ) -> Any:
     """
-    Imports entity from provided `location`, or finds an entity with `location` name in `import_path` module.
+    Imports entity from provided ``location``, or finds an entity with `location` name in `import_path` module.
 
     Example
     -------
@@ -84,7 +86,9 @@ def import_location(
     Parameters
     ----------
     location
+        Import location. Could be either a full import path or just a class name.
     import_path
+        Should be provided if ``location`` contains only the class name.
     back_compatibles
         See :func:`prepare_back_compatible_locations` function for reference.
 
