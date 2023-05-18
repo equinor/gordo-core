@@ -29,4 +29,16 @@ Class attribute validators. Mainly used in classes extended from :class:`gordo_c
     :undoc-members:
     :show-inheritance:
 
+Date partitions helper functions.
 
+.. automodule:: gordo_core.data_providers.partition
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Data provider utils.
+
+.. automodule:: gordo_core.data_providers.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
