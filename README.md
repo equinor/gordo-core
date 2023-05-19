@@ -42,3 +42,9 @@ Run docker-related tests:
 ```console
 > poetry run pytest -m "dockertest"
 ```
+
+Build documentation:
+```console
+> cd docs/
+> poetry run make watch
+```
