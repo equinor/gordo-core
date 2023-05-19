@@ -29,25 +29,21 @@ class GordoBaseDataProvider:
     ) -> Iterable[Tuple[pd.Series, Tag]]:
         """
         Load the required data as an iterable of series where each
-        contains the values of the tag with time index
+        contains the values of the tag with time index.
 
         Parameters
         ----------
-        train_start_date: datetime
+        train_start_date
             Datetime object representing the start of fetching data
-        train_end_date: datetime
+        train_end_date
             Datetime object representing the end of fetching data
-        tag_list: list[Tag]
+        tag_list
             List of tags to fetch, where each will end up being its own dataframe
-        dry_run: Optional[bool]
+        dry_run
             Set to true to perform a "dry run" of the loading.
             Up to the implementations to determine what that means.
-        kwargs: dict
-            With these - additional data might be passed by data_provider.
-
-        Returns
-        -------
-        Iterable[Tuple[pd.Series, SensorTag]]
+        kwargs
+            With these - additional data might be passed by ``data_provider``.
         """
         ...
 
@@ -56,26 +52,13 @@ class GordoBaseDataProvider:
         """
         Returns true if the dataprovider thinks it can possibly read this tag.
         Typically checks if the asset part of the tag is known to the reader.
-
-        Parameters
-        ----------
-        tag: SensorTag - Dictionary with a "tag" key and optional "asset"
-
-        Returns
-        -------
-        bool
-
         """
         ...
 
     def to_dict(self):
         """
         Serialize this object into a dict representation, which can be used to
-        initialize a new object after popping 'type' from the dict.
-
-        Returns
-        -------
-        dict
+        initialize a new object after popping ``type`` from the dict.
         """
         if not hasattr(self, "_params"):
             raise AttributeError(
@@ -134,13 +117,13 @@ class GordoBaseDataProvider:
         """
         Latest data point of tag from some time in the past till before_time, None if nothing found.
         This function is optional for implementing in the child classes,
-        if it's not implemented NotImplementedError will be thrown.
+        if it's not implemented :exc:`NotImplementedError` will be thrown.
         """
         raise NotImplementedError()
 
     def get_metadata(self):
         """
-        Get metadata about the current state of the data provider
+        Get metadata about the current state of the data provider.
         """
         return dict()
 
@@ -151,7 +134,7 @@ class GordoBaseDataProvider:
     ) -> list[Tag]:
         """
         Prepare and validate sensors list.
-        This function might be useful for overwriting in the extended class
+        This function might be useful for overwriting in the extended class.
         """
         tag_list = [
             normalize_sensor_tag(sensor, self.tags_required_fields, **kwargs)

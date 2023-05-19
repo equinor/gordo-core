@@ -1,3 +1,7 @@
+"""
+ .. todo::
+    Move module :mod:`gordo_core.data_providers.partition` to ``gordo_core.partition``
+"""
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
@@ -45,6 +49,18 @@ class PartitionBy(Enum):
 def split_by_partitions(
     partition_by: PartitionBy, start_period: datetime, end_period: datetime
 ) -> Iterable[Partition]:
+    """
+    Split time span by partitions
+
+    Parameters
+    ----------
+    partition_by
+        Partition chunks size, either year or month.
+    start_period
+        First date of time span.
+    end_period
+        Last date of time span.
+    """
     if start_period > end_period:
         message = "start_period bigger then end_period."
         message += "'%s' > '%s'" % (start_period.isoformat(), end_period.isoformat())

@@ -22,18 +22,18 @@ def import_dataset(
     location: str, *, back_compatibles: Optional[BackCompatibleLocations] = None
 ):
     """
-    Import `GordoBaseDataset` class.
+    Import :class:`gordo_core.base.GordoBaseDataset` class.
 
     Parameters
     ----------
-    location: str
+    location
         Class import location.
-    back_compatibles: Optional[BackCompatibleLocations]
-        See `gordo_core.import_utils.prepare_back_compatible_locations()` function for reference.
+    back_compatibles
+        See :func:`gordo_core.import_utils.prepare_back_compatible_locations` function for reference.
 
     Returns
     -------
-        `GordoBaseDataset` class.
+        Class with :class:`gordo_core.base.GordoBaseDataset` interface implemented.
 
     """
     if not location:
@@ -64,22 +64,22 @@ def create_with_provider(
     default_data_provider: Optional[str] = None,
 ):
     """
-    Instantiate `DatasetWithProvider`. Call `DatasetWithProvider.with_data_provider()` under the hood.
+    Instantiate :class:`.DatasetWithProvider`. Call :func:`DatasetWithProvider.with_data_provider` under the hood.
 
     Parameters
     ----------
-    dataset_cls: Type["DatasetWithProvider"]
-        `DatasetWithProvider` class.
-    config: dict[str, Any]
+    dataset_cls
+        :class:`.DatasetWithProvider` class.
+    config
         Dataset arguments.
-    back_compatibles: Optional[BackCompatibleLocations]
-        See `gordo_core.import_utils.prepare_back_compatible_locations()` function for reference.
-    default_data_provider: Optional[str]
-        Default data provider type. Will be taken if `data_provider.type` is empty.
+    back_compatibles
+        See :func:`gordo_core.import_utils.prepare_back_compatible_locations` function for reference.
+    default_data_provider
+        Default data provider type. Will be taken if ``data_provider.type`` is empty.
 
     Returns
     -------
-        `DatasetWithProvider` instance.
+        :class:`.DatasetWithProvider` instance.
 
     """
     args = copy.copy(config)
@@ -112,13 +112,13 @@ def create_dataset(
 
     Parameters
     ----------
-    dataset_cls: Type[GordoBaseDataset]
+    dataset_cls
         Dataset class.
-    args: dict[str, Any]
-        __init__ arguments.
-    back_compatibles: Optional[BackCompatibleLocations]
-        See `gordo_core.import_utils.prepare_back_compatible_locations()` function for reference.
-    default_data_provider: Optional[str]
+    args
+        ``__init__`` arguments.
+    back_compatibles
+        See :func:`gordo_core.import_utils.prepare_back_compatible_locations` function for reference.
+    default_data_provider
         Default data provider type. Will be taken if `data_provider.type` is empty.
 
     Returns
@@ -164,12 +164,12 @@ class GordoBaseDataset(metaclass=ABCMeta):
         Union[np.ndarray, pd.DataFrame, xr.DataArray],
     ]:
         """
-        The version of `get_data` used by gordo-client
+        The version of :func:`~GordoBaseDataset.get_data` used by gordo-client
 
         Parameters
         ----------
-        build_dataset_metadata: dict
-            build_metadata.dataset part of the metadata
+        build_dataset_metadata
+            ``build_metadata.dataset`` part of the metadata
 
         Returns
         -------
@@ -184,7 +184,6 @@ class GordoBaseDataset(metaclass=ABCMeta):
 
         Returns
         -------
-        dict
         """
         if not hasattr(self, "_params"):
             raise AttributeError(
@@ -221,7 +220,7 @@ class GordoBaseDataset(metaclass=ABCMeta):
             default_data_provider=default_data_provider,
         )
 
-    def get_metadata(self):
+    def get_metadata(self) -> dict:
         """
         Get metadata about the current state of the dataset
         """
@@ -229,6 +228,10 @@ class GordoBaseDataset(metaclass=ABCMeta):
 
 
 class DatasetWithProvider(GordoBaseDataset, metaclass=ABCMeta):
+    """
+    This class have to be used if you want to use :class:`.GordoBaseDataset` with ``DataProvider``
+    """
+
     @classmethod
     @abstractmethod
     def with_data_provider(

@@ -34,22 +34,24 @@ def prepare_back_compatible_locations(
 ) -> BackCompatibleLocations:
     """
     The result of this function can be used as `back_compatibles` argument
-    in `import_location()` functions.
+    in :func:`.import_location` functions.
 
     Example
     -------
     >>> prepare_back_compatible_locations([('old_module.MyClass', 'new_module.MyClass'),('OldClass', 'NewClass')])
     {('old_module', 'MyClass'): ('new_module', 'MyClass'), (None, 'OldClass'): (None, 'NewClass')}
 
+    Result items in this example are ``tuple[str, str]`` where the first item is a module location and the second is a class name.
+
     Parameters
     ----------
-    locations: Iterable[tuple[str, str]]
+    locations
         List of locations. The first item of each tuple is a location in the previous version,
         the second item is the location of the current version.
 
     Returns
     -------
-        Key-Value pair with locations of the previous version to the current version.
+        Key/Value pair with locations of the previous version to the current version.
 
     """
     back_compatibles: BackCompatibleLocations = {}
@@ -72,7 +74,7 @@ def import_location(
     back_compatibles: Optional[BackCompatibleLocations] = None
 ) -> Any:
     """
-    Imports entity from provided `location`, or finds an entity with `location` name in `import_path` module.
+    Imports entity from provided ``location``, or finds an entity with `location` name in `import_path` module.
 
     Example
     -------
@@ -83,10 +85,12 @@ def import_location(
 
     Parameters
     ----------
-    location: str
-    import_path: Optional[str]
-    back_compatibles: Optional[BackCompatibleLocations]
-        See `prepare_back_compatible_locations()` function for reference.
+    location
+        Import location. Could be either a full import path or just a class name.
+    import_path
+        Should be provided if ``location`` contains only the class name.
+    back_compatibles
+        See :func:`prepare_back_compatible_locations` function for reference.
 
     Returns
     -------

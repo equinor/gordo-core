@@ -48,3 +48,35 @@ jobs:
 
       - name: Run ${{ matrix.script }}
         run: bash scripts/${{ matrix.script }}
+
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.3.3
+        with:
+          version: 1.2.2
+          virtualenvs-in-project: false
+          virtualenvs-path: ~/.virtualenvs
+
+      - name: Load cached venv
+        uses: actions/cache@v3
+        with:
+          path: ~/.virtualenvs
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install deps
+        run: |
+          poetry install --with docs
+
+      - name: Build HTML Docs
+        run: |
+          cd docs/
+          poetry run make html

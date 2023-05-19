@@ -55,9 +55,9 @@ class NotEnoughDataWarning(RuntimeWarning):
 
 def compat(init):
     """
-    __init__ decorator for compatibility where the Gordo config file's ``dataset`` keys have
+    ``__init__`` decorator for compatibility where the Gordo config file's ``dataset`` keys have
     drifted from what kwargs are actually expected in the given dataset. For example,
-    using `train_start_date` is common in the configs, but :class:`~TimeSeriesDataset`
+    using ``train_start_date`` is common in the configs, but :class:`~TimeSeriesDataset`
     takes this parameter as ``train_start_date``, as well as :class:`~RandomDataset`
 
     Renames old/other acceptable kwargs to the ones that the dataset type expects
@@ -128,39 +128,40 @@ class TimeSeriesDataset(DatasetWithProvider):
         **kwargs,
     ):
         """
-        Creates a TimeSeriesDataset backed by a provided dataprovider.
+        Creates a ``TimeSeriesDataset`` backed by a provided dataprovider.
 
-        A TimeSeriesDataset is a dataset backed by timeseries, but resampled,
+        A ``TimeSeriesDataset`` is a dataset backed by timeseries, but resampled,
         aligned, and (optionally) filtered.
 
         Parameters
         ----------
-        train_start_date: Union[datetime, str]
+        train_start_date
             Earliest possible point in the dataset (inclusive)
-        train_end_date: Union[datetime, str]
+        train_end_date
             Earliest possible point in the dataset (exclusive)
-        tag_list: Sequence[Union[str, dict, sensor_tag.SensorTag]]
+        tag_list
             List of tags to include in the dataset. The elements can be strings,
-            dictionaries or SensorTag namedtuples.
-        target_tag_list: Sequence[list[Union[str, dict, sensor_tag.SensorTag]]]
+            dictionaries or :class:`gordo_core.SensorTag`, :func:`tuple`.
+        target_tag_list
             List of tags to set as the dataset y. These will be treated the same as
             tag_list when fetching and pre-processing (resampling) but will be split
-            into the y return from ``.get_data()``
-        data_provider: Optional[GordoBaseDataProvider]
+            into the y return from :class:`~TimeSeriesDataset.get_data`
+        data_provider
             A dataprovider which can provide dataframes for tags from train_start_date to train_end_date
-        resolution: Optional[str]
+        resolution
             The bucket size for grouping all incoming time data (e.g. "10T").
             Available strings come from
-            https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
-            **Note**: If this parameter is ``None`` or ``False``,
-            then _no_ aggregation/resampling is applied to the data.
-        row_filter: str or list
+            `timeseries <https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects>`_
+
+            .. note::
+                If this parameter is ``None`` or ``False``, then _no_ aggregation/resampling is applied to the data.
+        row_filter
             Filter on the rows. Only rows satisfying the filter will be in the dataset.
             See :func:`gordo_core.filter_rows.pandas_filter_rows` for
             further documentation of the filter format.
-        known_filter_periods: list
+        known_filter_periods
             List of periods to drop in the format
-            [~('2020-04-08 04:00:00+00:00' < index < '2020-04-08 10:00:00+00:00')].
+            ``[~('2020-04-08 04:00:00+00:00' < index < '2020-04-08 10:00:00+00:00')].``
             Note the time-zone suffix (+00:00), which is required.
         aggregation_methods
             Aggregation method(s) to use for the resampled buckets. If a single
@@ -169,27 +170,27 @@ class TimeSeriesDataset(DatasetWithProvider):
             aggregation-methods are provided then the resulting dataframe will
             have a multi-level column index, with the series-name as the first level,
             and the aggregation method as the second level.
-            See :py:func::`pandas.core.resample.Resampler#aggregate` for more
+            See :func:`pandas.Series.resample` for more
             information on possible aggregation methods.
-        row_filter_buffer_size: int
+        row_filter_buffer_size
             Whatever elements are selected for removal based on the ``row_filter``, will also
             have this amount of elements removed fore and aft.
             Default is zero 0
-        asset: Optional[str]
+        asset
             Asset for which the tags are associated with.
-        n_samples_threshold: int = 0
+        n_samples_threshold
             The threshold at which the generated DataFrame is considered to have too few rows of data.
-        interpolation_method: str
-            How should missing values be interpolated. Either forward fill (`ffill`) or by linear
-            interpolation (default, `linear_interpolation`).
-        interpolation_limit: str
+        interpolation_method
+            How should missing values be interpolated. Either forward fill (``ffill``) or by linear
+            interpolation (default, ``linear_interpolation``).
+        interpolation_limit
             Parameter sets how long from last valid data point values will be interpolated/forward filled.
             If None, all missing values are interpolated/forward filled.
             Also, it's used as max time limit of point for look-back to find
             latest point before window's start (if needed).
-        filter_periods: dict
+        filter_periods
             Performs a series of algorithms that drops noisy data is specified.
-            See `filter_periods` class for details.
+            See ``filter_periods`` class for details.
         kwargs
             Deprecated arguments.
 
@@ -368,22 +369,22 @@ class TimeSeriesDataset(DatasetWithProvider):
 
         Parameters
         ----------
-        series_iterable: Iterable[pd.Series]
+        series_iterable
             An iterator supplying series with time index
-        resampling_startpoint: datetime.datetime
+        resampling_startpoint
             The starting point for resampling. Most data frames will not have this
             in their datetime index, and it will be inserted with a NaN as the value.
             The resulting NaNs will be removed, so the only important requirement for this is
             that this resampling_startpoint datetime must be before or equal to the first
             (earliest) datetime in the data to be resampled.
-        resampling_endpoint: datetime.datetime
+        resampling_endpoint
             The end point for resampling. This datetime must be equal to or after the last datetime in the
             data to be resampled.
-        resolution: str
+        resolution
             The bucket size for grouping all incoming time data (e.g. "10T")
             Available strings come from
             https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
-        aggregation_methods: Union[str, list[str], Callable]
+        aggregation_methods
             Aggregation method(s) to use for the resampled buckets. If a single
             resample method is provided then the resulting dataframe will have names
             identical to the names of the series it got in. If several
@@ -392,10 +393,10 @@ class TimeSeriesDataset(DatasetWithProvider):
             and the aggregation method as the second level.
             See :py:func::`pandas.core.resample.Resampler#aggregate` for more
             information on possible aggregation methods.
-        interpolation_method: str
+        interpolation_method
             How should missing values be interpolated. Either forward fill (`ffill`) or by linear
             interpolation (default, `linear_interpolation`).
-        interpolation_limit: str
+        interpolation_limit
             Parameter sets how long from last valid data point values will be interpolated/forward filled.
             Default is eight hours (`8H`).
             If None, all missing values are interpolated/forward filled.
@@ -503,9 +504,8 @@ class TimeSeriesDataset(DatasetWithProvider):
         Only uses point from past to Nans filling if it was found not far then
         interpolation limit.
 
-        Returns:
+        Returns
         -------
-        pd.Series
             Same not changed Series or Series with attempt to fill Nans.
         """
         try:
@@ -747,7 +747,7 @@ class TimeSeriesDataset(DatasetWithProvider):
 class RandomDataset(TimeSeriesDataset):
     """
     Get a TimeSeriesDataset backed by
-    gordo_core.data_provider.providers.RandomDataProvider
+    :class:`gordo_core.data_provider.providers.RandomDataProvider`
     """
 
     @compat

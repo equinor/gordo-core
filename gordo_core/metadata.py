@@ -3,7 +3,6 @@ from typing import Iterable, Optional, Set
 from gordo_core.sensor_tag import (
     SensorTag,
     Tag,
-    extract_tag_name,
     load_sensor_tag,
     tag_to_json,
     unique_tag_names,
@@ -46,18 +45,18 @@ def sensor_tags_from_build_metadata(
     build_dataset_metadata: dict, tag_names: Set[str]
 ) -> dict[str, SensorTag]:
     """
-    Fetch tags information from the metadata
+    Fetch sensor tags information from the metadata.
+    This info should be placed in ``build_dataset_metadata["dataset_meta"]["tag_loading_metadata"]["tags"]``
 
     Parameters
     ----------
-    build_dataset_metadata: dict
-        build_metadata.dataset part of the metadata
-    tag_names: Set[str]
+    build_dataset_metadata
+        ``build_metadata.dataset`` part of the metadata
+    tag_names
         Contains tag names for which we should fetch information
     Returns
     -------
-    dict[str, SensorTag]
-        Key here is tag name passed though `tag_names` argument
+        Key here is tag name passed though ``tag_names`` argument
 
     """
     tags_build_metadata = _tags_from_build_metadata(build_dataset_metadata)

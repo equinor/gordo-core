@@ -14,7 +14,7 @@ class SensorTagNormalizationError(ValueError):
 
 class SensorTag:
     """
-    Representation of sensor tag. It contains the sensor tag name and additional fields.
+    Representation of the sensor tag. It contains the sensor tag name and additional fields/metadata.
 
     Example
     -------
@@ -27,8 +27,8 @@ class SensorTag:
         """
         Parameters
         ----------
-        name: str
-            Sensor tag name. Required field.
+        name
+            Sensor tag name. Required field and should be unique among all the tags.
         kwargs
             Additional fields.
         """
@@ -98,7 +98,7 @@ class SensorTag:
 
     def mutate_fields(self, **kwargs: Optional[str]) -> "SensorTag":
         """
-        Update `SensorTag` fields from `kwargs`. Instantiate a new object if needed
+        Update :class:`~SensorTag` fields from ``kwargs``. Instantiate a new object if needed.
 
         Examples
         --------
@@ -109,9 +109,7 @@ class SensorTag:
         Parameters
         ----------
         kwargs
-
-        Returns
-        -------
+            Fields to update.
 
         """
         new_fields = copy.copy(self._fields)
@@ -167,14 +165,10 @@ def load_sensor_tag(
 
     Parameters
     ----------
-    sensor: dict[str, Optional[str]]
-        It should at least contain `name` field.
-    required_fields: Optional[Iterable[str]]
+    sensor
+        It should at least contain ``name`` field.
+    required_fields
         Required additional fields.
-
-    Returns
-    -------
-        SensorTag
 
     """
     _validate_required_fields(sensor, required_fields)
@@ -193,13 +187,13 @@ def normalize_sensor_tag(
     **kwargs: Optional[str],
 ) -> Tag:
     """
-    Take sensor tag information and tries to convert it to SensorTag.
+    Take sensor tag information and tries to convert it to :class:`.SensorTag`.
 
     Parameters
     ----------
-    sensor: Sensor
-        Sensor tag information. Could be either dict suitable for `load_sensor_tag()` function or str
-    required_fields: Optional[Iterable[str]]
+    sensor
+        Sensor tag information. Could be either dict suitable for :func:`.load_sensor_tag` function or str
+    required_fields
         Required additional fields.
     kwargs
         Additional fields.
@@ -237,7 +231,8 @@ def to_list_of_strings(sensor_tag_list: list[SensorTag]) -> list[str]:
 
     Parameters
     ----------
-    sensor_tag_list: list[SensorTag]
+    sensor_tag_list
+        Sensor tags list
 
     """
     return [sensor_tag.name for sensor_tag in sensor_tag_list]
@@ -249,7 +244,8 @@ def extract_tag_name(tag: Tag) -> str:
 
     Parameters
     ----------
-    tag: Tag
+    tag
+        Sensor tag to extract.
 
     """
     if type(tag) is str:
@@ -260,14 +256,12 @@ def extract_tag_name(tag: Tag) -> str:
 
 def tag_to_json(tag: Tag) -> Union[str, dict[str, Optional[str]]]:
     """
-    Convert `Tag` to JSON representation.
+    Convert ::`.Tag` to JSON representation.
 
     Parameters
     ----------
-    tag: Tag
-
-    Returns
-    -------
+    tag
+        Tag to convert.
 
     """
     if type(tag) is str:
@@ -279,13 +273,15 @@ def tag_to_json(tag: Tag) -> Union[str, dict[str, Optional[str]]]:
 
 def validate_tag_equality(tag1: Tag, tag2: Tag):
     """
-    SensorTags with the same name should not have different fields.
-    str and SensorTag should not have the same name.
+    :class:`.SensorTags` with the same name should not have different fields.
+    str and :class:`.SensorTag` should not have the same name.
 
     Parameters
     ----------
-    tag1: Tag
-    tag2: Tag
+    tag1
+        First tag to compare.
+    tag2
+        Second tag to compare.
 
     """
     type_tag1, type_tag2 = type(tag1), type(tag2)
@@ -318,7 +314,6 @@ def unique_tag_names(*tags: Iterable[Tag]) -> dict[str, Tag]:
 
     Returns
     -------
-    dict[str, Tag]
         Keys here are the unique tag names.
         Tags will be in lower case if `case_insensitive` True.
 

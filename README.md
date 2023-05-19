@@ -2,9 +2,11 @@
 
 The main component can be found [here](https://github.com/equinor/gordo).
 
+[Documentation is available on Read the Docs](https://gordo-core.readthedocs.io/)
+
 ## Installation
 
-At least python 3.9 need to be installed in the system first.
+At least python 3.10 need to be installed in the system first.
 
 ```
 pip3 install gordo-core
@@ -19,9 +21,10 @@ Install [poetry](https://python-poetry.org/docs/#installation).
 Setup and run development shell instance:
 
 ```console
-> poetry shell
 > poetry install
+> poetry shell
 ```
+### Pre-commit
 
 You could also install and apply [pre-commit](https://pre-commit.com/#usage) hooks.
 
@@ -38,4 +41,10 @@ Run tests (except docker-related ones):
 Run docker-related tests:
 ```console
 > poetry run pytest -m "dockertest"
+```
+
+Build documentation:
+```console
+> cd docs/
+> poetry run make watch
 ```

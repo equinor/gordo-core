@@ -1,6 +1,5 @@
 import logging
 from pprint import pformat
-from typing import Optional
 
 import pandas as pd
 from sklearn.ensemble import IsolationForest
@@ -16,44 +15,39 @@ class WrongFilterMethodType(TypeError):
 
 
 class FilterPeriods:
-    """Model class with methods for data pre-processing.
-    Performs a series of algorithms that drops noisy data.
-
-    Either a rolling median or an isolation forest algorithm is executed.
-    Both provide drop periods in a dict-type element on the class object
-    `object.drop_periods["iforest"]` and `object.drop_periods["median"]`,
-    and data is filtered accordingly.
-
-    Parameters:
-    data: pandas.DataFrame
-        Data frame containing already filtered data (global max/min + dropped known periods).
-        Time consecutively is not required.
-    granularity: str
-        The bucket size for grouping all incoming time data (e.g. "10T").
-        Available strings come from https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
-    **kwargs:
-        See below.
-
-    Keyword arguments:
-    filter_method: str
-        Which method should be used for data cleaning, either "median" (default), "iforest" or "all" which returns
-        results for both methods.
-    iforest_smooth: bool
-        If exponential weighted smoothing should be applied to data before isolation forest
-        algorithm is run.
-    """
+    """Model class with methods for data pre-processing."""
 
     def __init__(
         self,
         granularity: str = "10T",
         filter_method: str = "median",
-        window=144,
-        n_iqr=5,
-        iforest_smooth=False,
-        contamination=0.03,
-        quantile_lower=0.05,
-        quantile_upper=0.95,
+        window: int = 144,
+        n_iqr: int = 5,
+        iforest_smooth: bool = False,
+        contamination: float = 0.03,
+        quantile_lower: float = 0.05,
+        quantile_upper: float = 0.95,
     ):
+        """
+        Performs a series of algorithms that drops noisy data.
+
+        Either a rolling median or an isolation forest algorithm is executed.
+        Both provide drop periods in a dict-type element on the class object
+        ``object.drop_periods["iforest"]`` and ``object.drop_periods["median"]``,
+        and data is filtered accordingly.
+
+        Parameters
+        ----------
+        granularity
+            The bucket size for grouping all incoming time data (e.g. "10T").
+            Available strings come from `timeseries <https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects>`_.
+        filter_method
+            Which method should be used for data cleaning, either "median" (default), "iforest" or "all" which returns
+            results for both methods.
+        iforest_smooth
+            If exponential weighted smoothing should be applied to data before isolation forest
+            algorithm is run.
+        """
         self.granularity = granularity
         self.filter_method = filter_method
         if self.filter_method not in ["quantile", "median", "iforest", "all"]:
@@ -65,10 +59,15 @@ class FilterPeriods:
         self._quantile_lower = quantile_lower
         self._quantile_upper = quantile_upper
 
-    def filter_data(self, data):
-        """Method for filtering data.
+    def filter_data(self, data: pd.DataFrame):
+        """
+        Method for filtering data.
         Returns the filtered dataset, a dict containing the different periods that have been dropped arranged
         by filtering method and the actual predictions from the filter model.
+
+        data
+            Data frame containing already filtered data (global max/min + dropped known periods).
+            Time consecutively is not required.
         """
         predictions = {}
         if self.filter_method in ["median", "all"]:
