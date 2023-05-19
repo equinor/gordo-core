@@ -32,6 +32,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.extlinks",
     "sphinx.ext.linkcode",
+    "sphinx.ext.autosectionlabel",
     "IPython.sphinxext.ipython_directive",
     "IPython.sphinxext.ipython_console_highlighting",
     "sphinx_copybutton",
@@ -105,6 +106,8 @@ intersphinx_mapping = {
     "xarray": ("https://docs.xarray.dev/en/stable/user-guide/", None),
     "influxdb": ("https://influxdb-python.readthedocs.io/en/latest/", None),
 }
+
+autosectionlabel_prefix_document = True
 
 autodoc_typehints = "signature"
 

@@ -10,3 +10,10 @@ Data Providers
     :members:
     :undoc-members:
     :show-inheritance:
+
+Data provider examples:
+
+.. automodule:: gordo_core.data_providers.contrib.csv_provider
+    :members:
+    :undoc-members:
+    :show-inheritance:

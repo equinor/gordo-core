@@ -1,13 +1,15 @@
 Data source customization
 -------------------------
 
-To extend ``GordoBaseDataProvider`` class for a custom data source, you will need to create a new class that inherits from the ``GordoBaseDataProvider`` class. Override the ``get_data()`` method to retrieve data from your custom data source and return it in the desired format.
+For implementing a custom data source extend :class:`gordo_core.data_providers.base.GordoBaseDataProvider`.
+Override :func:`gordo_core.data_providers.base.GordoBaseDataProvider.load_series` method, it should return data from
+the data source in a correct format.
 
-As an example, let's make a CSV reader ``CSVDataProvider``.
+As a reference we could use CSV reader from the :mod:`gordo_core.data_providers.contrib` module:
 
-.. literalinclude:: ../../gordo_core/data_providers/examples/csv_provider.py
+.. literalinclude:: ../../gordo_core/data_providers/contrib/csv_provider.py
 
-Then we can use this data provider through ``TimeSeriesDataset`` and load a CSV file.
+Then use this data provider with :class:`gordo_core.time_series.TimeSeriesDataset` to load a CSV file:
 
 .. ipython::
 
@@ -15,7 +17,7 @@ Then we can use this data provider through ``TimeSeriesDataset`` and load a CSV 
 
     In [2]: from gordo_core.sensor_tag import SensorTag 
 
-    In [3]: from gordo_core.data_providers.examples.csv_provider import CSVDataProvider
+    In [3]: from gordo_core.data_providers.contrib.csv_provider import CSVDataProvider
 
     In [4]: data_provider=CSVDataProvider("../examples/turbine_sensors.csv", "index")
 

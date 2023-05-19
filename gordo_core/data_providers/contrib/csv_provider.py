@@ -38,7 +38,7 @@ class CSVDataProvider(GordoBaseDataProvider):
         **kwargs,
     ) -> Iterable[Tuple[pd.Series, Tag]]:
         """
-        Load the data from the CSV file.
+        Load data from the CSV file.
         """
         # this dict contains sensor tag names as keys, and Tag as values
         tags = unique_tag_names(tag_list)

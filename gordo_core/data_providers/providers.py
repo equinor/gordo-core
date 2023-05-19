@@ -46,7 +46,7 @@ class InfluxDataProvider(GordoBaseDataProvider):
             Key of header to insert the api key for requests
         uri
             Create a client from a URI
-            format: `<username>:<password>@<host>:<port>/<optional-path>/<db_name>`
+            format: ``<username>:<password>@<host>:<port>/<optional-path>/<db_name>``
         kwargs
             These are passed directly to the init args of influxdb.DataFrameClient
         """

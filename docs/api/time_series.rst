@@ -1,7 +1,9 @@
 Time Series Dataset
 -------------------
 
-Original implementation of :class:`gordo_core.base.GordoBaseDataset`.
+Default implementation of :class:`gordo_core.base.GordoBaseDataset`.
+:class:`gordo_core.time_series.TimeSeriesDataset` supports multiple customizable preprocessing and filtering algorithms,
+check :ref:`here <overview/data_preprocessing:data preprocessing steps>` for details.
 
 .. automodule:: gordo_core.time_series
     :members:
