@@ -5,7 +5,7 @@ For implementing a custom data source extend :class:`gordo_core.data_providers.b
 Override :func:`gordo_core.data_providers.base.GordoBaseDataProvider.load_series` method, it should return data from
 the data source in a correct format.
 
-As a reference we could use CSV reader from the :mod:`gordo_core.data_providers.contrib` module:
+As a reference we could use CSV reader from :mod:`gordo_core.data_providers.contrib` module:
 
 .. literalinclude:: ../../gordo_core/data_providers/contrib/csv_provider.py
 
@@ -33,5 +33,7 @@ Then use this data provider with :class:`gordo_core.time_series.TimeSeriesDatase
 
     In [7]: X
 
-``tag_list`` could be specified either as ``SensorTag`` object with additional metadata or as a string. ``str`` to ``SensorTag`` conversion could be customized with overwriting ``GordoBase DataProvider.tag_normalizer()`` method.
+``tag_list`` could be specified either as :class:`gordo_core.sensor_tag.SensorTag` object with additional metadata or as a string.
+``str`` to :class:`gordo_core.sensor_tag.SensorTag` conversion should be customized with overwriting
+:func:`gordo_core.data_providers.base.GordoBaseDataProvider.tag_normalizer` method.
 

@@ -29,7 +29,7 @@ class GordoBaseDataProvider:
     ) -> Iterable[Tuple[pd.Series, Tag]]:
         """
         Load the required data as an iterable of series where each
-        contains the values of the tag with time index
+        contains the values of the tag with time index.
 
         Parameters
         ----------
@@ -123,7 +123,7 @@ class GordoBaseDataProvider:
 
     def get_metadata(self):
         """
-        Get metadata about the current state of the data provider
+        Get metadata about the current state of the data provider.
         """
         return dict()
 
@@ -134,7 +134,7 @@ class GordoBaseDataProvider:
     ) -> list[Tag]:
         """
         Prepare and validate sensors list.
-        This function might be useful for overwriting in the extended class
+        This function might be useful for overwriting in the extended class.
         """
         tag_list = [
             normalize_sensor_tag(sensor, self.tags_required_fields, **kwargs)

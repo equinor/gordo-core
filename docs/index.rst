@@ -22,13 +22,12 @@ Example of usage:
        ...:     tag_list=['tag1', 'tag2', 'tag3']
        ...: )
 
-    In [3]: X, y = dataset.get_data()
+    In [3]: X, y = dataset.get_data()  # Randomly generated X, y dataframes
 
     In [4]: X
 
 .. toctree::
     :maxdepth: 2
 
-    ./overview/data_preprocessing.rst
-    ./overview/customization.rst
+    ./overview/index.rst
     ./api/index.rst
