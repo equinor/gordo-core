@@ -1314,14 +1314,14 @@ pytest = [
 
 [[package]]
 name = "pytest-xdist"
-version = "3.3.0"
+version = "3.3.1"
 description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pytest-xdist-3.3.0.tar.gz", hash = "sha256:d42c9efb388da35480878ef4b2993704c6cea800c8bafbe85a8cdc461baf0748"},
-    {file = "pytest_xdist-3.3.0-py3-none-any.whl", hash = "sha256:76f7683d4f993eaff91c9cb0882de0465c4af9c6dd3debc903833484041edc1a"},
+    {file = "pytest-xdist-3.3.1.tar.gz", hash = "sha256:d5ee0520eb1b7bcca50a60a518ab7a7707992812c578198f8b44fdfac78e8c93"},
+    {file = "pytest_xdist-3.3.1-py3-none-any.whl", hash = "sha256:ff9daa7793569e6a68544850fd3927cd257cc03a7ef76c95e86915355e82b5f2"},
 ]
 
 [package.dependencies]
@@ -1744,14 +1744,14 @@ files = [
 
 [[package]]
 name = "tomli"
-version = "1.2.3"
+version = "2.0.1"
 description = "A lil' TOML parser"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "tomli-1.2.3-py3-none-any.whl", hash = "sha256:e3069e4be3ead9668e21cb9b074cd948f7b3113fd9c8bba083f48247aab8b11c"},
-    {file = "tomli-1.2.3.tar.gz", hash = "sha256:05b6166bff487dc068d322585c7ea4ef78deed501cc124060e0f238e89a9231f"},
+    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
+    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 
 [[package]]
@@ -1856,14 +1856,14 @@ types-urllib3 = "*"
 
 [[package]]
 name = "types-setuptools"
-version = "67.7.0.2"
+version = "67.7.0.3"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-setuptools-67.7.0.2.tar.gz", hash = "sha256:155789e85e79d5682b0d341919d4beb6140408ae52bac922af25b54e36ab25c0"},
-    {file = "types_setuptools-67.7.0.2-py3-none-any.whl", hash = "sha256:bd30f6dbe9b83f0a7e6e3eab6d2df748aa4f55700d54e9f077d3aa30cc019445"},
+    {file = "types-setuptools-67.7.0.3.tar.gz", hash = "sha256:b3c82ef86c2ff8be238bcec10ba37c194a679f7f8bb075e8d064d8b530b4181e"},
+    {file = "types_setuptools-67.7.0.3-py3-none-any.whl", hash = "sha256:ba59707ba74243aebb0f764d4011f780f0d2dbf60cc1c3efcc20b875d93f43e1"},
 ]
 
 [[package]]
@@ -1939,14 +1939,14 @@ test = ["websockets"]
 
 [[package]]
 name = "xarray"
-version = "2023.4.2"
+version = "2023.5.0"
 description = "N-D labeled arrays and datasets in Python"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "xarray-2023.4.2-py3-none-any.whl", hash = "sha256:1b6d577c1217ad6bf7458426af19ed7a489ab6c41220ca791f55f5df9648173a"},
-    {file = "xarray-2023.4.2.tar.gz", hash = "sha256:958ec588220352343b910cbc05e54e7ab54d4e8c1c3a7783d6bfe7549d0bd0d2"},
+    {file = "xarray-2023.5.0-py3-none-any.whl", hash = "sha256:b62f19bb04e68f684a92a8a458c63c91cf76e6fabe54cf4438f7e2ca56348854"},
+    {file = "xarray-2023.5.0.tar.gz", hash = "sha256:318a651f4182b9cecb7d1c57ad0ed9bdaed5f49c43dbb638c0a845b8faf405e8"},
 ]
 
 [package.dependencies]
@@ -1981,4 +1981,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "da78c88e1107bcabcb2c6254df493f49fdc4a12056054aacb7f5e28c7aa03a19"
+content-hash = "3f005ce821f68796051ac7e7343004713e0592701395038eb2fc9e2fed554c76"

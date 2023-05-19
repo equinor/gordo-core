@@ -66,6 +66,12 @@ jobs:
           virtualenvs-in-project: false
           virtualenvs-path: ~/.virtualenvs
 
+      - name: Load cached venv
+        uses: actions/cache@v3
+        with:
+          path: ~/.virtualenvs
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
       - name: Install deps
         run: |
           poetry install --with docs
