@@ -6,27 +6,26 @@ Data preprocessing steps
 
 #. Data is fetched for the complete period between the train start and end time.
 #. Data is then aggregated by ``aggregation_methods`` at given ``resolution``. 
-   This step includes interpolating values that might be missing, handled in `Gordo <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/utils.py>`_.
+   This step includes interpolating values that might be missing.
    For this, the specified ``interpolation_method`` is used with its ``interpolation_limit``.
    The limit specifies how long from last valid data point values will be interpolated.
 #. Known periods specified in ``known_filter_periods`` are dropped from dataset.
-#. `Row filter <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/filter_rows.py>`_ is applied. 
+#. :ref:`Row filter <api/filters:Row filter>` is applied.
    All numerical filtering criteria in the provided list are evaluated and joined by logical ``&``.
    This step also involves the ``row_filter_buffer_size``\ , which removes observations of the given size before and after the ones that have already been filtered out.
 #. Data is filtered by global minima/maxima conditions (\ ``low_threshold``\ /\ ``high_threshold``\ ).
-#. `Filter periods <https://github.com/equinor/gordo-dataset/blob/master/gordo_dataset/filter_periods.py>`_ is applied for filtering out noisy data points.
+#. :ref:`Filter periods <Filter periods algorithms>` is applied for filtering out noisy data points.
     See below for some more details.
-   If applied, the information is written to the `metadata <../metadata>`_ as ``filtered_periods``.
+   If applied, the information is written to the :ref:`metadata <overview/metadata:Metadata>` as ``filtered_periods``.
 
 Between each step, the samples of the resulting dataset is compared to ``n_samples_threshold`` to ensure at least minimum size is returned.
-
-.. _filter_periods:
 
 Filter periods algorithms
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This executes a set of algorithms that will filter out observations.
 There are currently two algorithms implemented: Rolling median and isolation forest.
+See this :ref:`API section <api/filters:Filter periods>` for details.
 
 ``window`` is used by the rolling median 
 
