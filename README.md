@@ -1,3 +1,5 @@
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/805e1799-b38a-48b5-a04f-2dff17ee744a/badge)](https://developer.equinor.com/governance/scm-policy/)
+
 # Gordo core library.
 
 # Table of Contents
