@@ -1,4 +1,5 @@
 """Module with expected metadata of joined to Dataframe Series."""
+
 __all__ = ["get_expected_metadata"]
 
 

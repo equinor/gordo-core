@@ -63,9 +63,9 @@ BACK_COMPATIBLE_LOCATIONS: Final[list[tuple[str, str]]] = [
     ),
 ]
 
-DEFAULT_BACK_COMPATIBLES: Final[
-    BackCompatibleLocations
-] = prepare_back_compatible_locations(BACK_COMPATIBLE_LOCATIONS)
+DEFAULT_BACK_COMPATIBLES: Final[BackCompatibleLocations] = (
+    prepare_back_compatible_locations(BACK_COMPATIBLE_LOCATIONS)
+)
 """
 This constant have to be used as default value for ``back_compatibles`` argument for :func:`gordo_core.import_utils.import_location`.
 Most of these paths are temporary and will be deprecated soon.

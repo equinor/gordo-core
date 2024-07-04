@@ -108,4 +108,4 @@ def test_filter_rows_buffer(buffer_size, series, expected):
     expected = expected.astype(bool)
 
     apply_buffer(series, buffer_size=buffer_size)
-    assert np.alltrue(np.equal(series, expected))
+    assert np.all(np.equal(series, expected))

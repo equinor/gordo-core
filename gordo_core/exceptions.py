@@ -11,6 +11,7 @@ This module defines the following exception hierarchy:
                 * :exc:`NuisanceEmptyDataError`
     * :exc:`ConfigException`
 """
+
 from typing import Optional, Union
 
 
