@@ -157,9 +157,7 @@ class GordoBaseDataset(metaclass=ABCMeta):
         Return X, y data as numpy or pandas' dataframes given current state
         """
 
-    def get_client_data(
-        self, build_dataset_metadata: dict
-    ) -> Tuple[
+    def get_client_data(self, build_dataset_metadata: dict) -> Tuple[
         Union[np.ndarray, pd.DataFrame, xr.DataArray],
         Union[np.ndarray, pd.DataFrame, xr.DataArray],
     ]:
@@ -240,9 +238,7 @@ class DatasetWithProvider(GordoBaseDataset, metaclass=ABCMeta):
         args: dict[str, Any],
         *,
         back_compatibles: Optional[BackCompatibleLocations] = None,
-    ):
-        ...
+    ): ...
 
     @abstractmethod
-    def get_data_provider(self) -> GordoBaseDataProvider:
-        ...
+    def get_data_provider(self) -> GordoBaseDataProvider: ...

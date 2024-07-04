@@ -56,6 +56,7 @@ Test case 6: no data during desired time and data in look_back at the end
         'previous_datapoint': exists,
     Result: Dataframe with one not Nan row.
 """
+
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable, Tuple

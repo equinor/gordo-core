@@ -2,6 +2,7 @@
  .. todo::
     Move module :mod:`gordo_core.data_providers.partition` to ``gordo_core.partition``
 """
+
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
